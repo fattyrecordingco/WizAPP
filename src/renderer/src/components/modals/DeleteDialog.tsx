@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Modal from '../ui/Modal'
 
 type DeleteDialogProps = {
@@ -16,6 +17,7 @@ export default function DeleteDialog({
   onClose
 }: DeleteDialogProps) {
   // TODO: Implement delete bulb functionality
+  const { t } = useTranslation()
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title}>
@@ -27,13 +29,13 @@ export default function DeleteDialog({
           type="button"
           onClick={onClose}
         >
-          Cancel
+          {t('modals.cancel')}
         </button>
         <button
           className="mt-4 px-4 bg-alert rounded-lg text-white py-2 transition-colors cursor-pointer font-medium hover:bg-red-500"
           onClick={onConfirm}
         >
-          Delete
+          {t('modals.delete')}
         </button>
       </footer>
     </Modal>

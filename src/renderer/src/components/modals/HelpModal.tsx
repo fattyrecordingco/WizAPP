@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LuDownload, LuFolder, LuGithub, LuLoaderCircle, LuUser } from 'react-icons/lu'
 import Modal from '../ui/Modal'
 import Separator from '../ui/Separator'
@@ -8,7 +9,8 @@ type AboutModalProps = {
   onClose: () => void
 }
 
-export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
+export default function HelpModal({ isOpen, onClose }: AboutModalProps) {
+  const { t } = useTranslation()
   const [updateMsg, setUpdateMsg] = useState<string | null>(null)
   const [isChecking, setIsChecking] = useState(false)
 
@@ -20,7 +22,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
     setIsChecking(true)
     window.api.checkForUpdates().then((updateFound) => {
       if (!updateFound) {
-        setUpdateMsg('No updates available')
+        setUpdateMsg(t('help.noUpdates'))
 
         setTimeout(() => {
           setUpdateMsg(null)
@@ -39,14 +41,16 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="WiZ App" maxWidth="max-w-sm">
-      <p className="text-sm text-neutral-500 font-medium -mt-6">Version: 3.0.0 (Windows)</p>
+      <p className="text-sm text-neutral-500 font-medium -mt-6">
+        {t('help.version')}: 3.0.0 (Windows)
+      </p>
 
       <Separator />
 
       <article className="flex flex-col gap-1 mt-8">
         <div className="flex items-center gap-2">
           <LuGithub size={24} />
-          <p>Source code:</p>
+          <p>{t('help.source')}:</p>
           <a
             href="https://github.com/MatiasTK/WizAPP"
             rel="noreferrer"
@@ -59,7 +63,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
 
         <div className="flex items-center gap-2 mt-4">
           <LuUser size={24} />
-          <p>Author:</p>
+          <p>{t('help.author')}:</p>
           <p>
             Matias Vallejos (
             <a
@@ -79,7 +83,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
           onClick={handleOpenAppFolder}
         >
           <LuFolder size={20} />
-          <p>Open program folder</p>
+          <p>{t('help.openFolder')}</p>
         </button>
 
         <button
@@ -95,7 +99,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
           ) : (
             <LuDownload size={20} />
           )}
-          {isChecking ? <p>Checking for updates...</p> : <p>Check for updates</p>}
+          {isChecking ? <p>{t('help.checkingUpdates')}</p> : <p>{t('help.checkUpdates')}</p>}
         </button>
 
         {updateMsg && updateToast(updateMsg)}

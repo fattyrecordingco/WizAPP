@@ -1,36 +1,44 @@
-import { useBulbStore } from '@renderer/context/BulbStore'
+import { useTranslation } from 'react-i18next'
 import { scenes } from 'src/renderer/utils/scenesInfo'
 import SceneItem from './SceneItem'
 
 type Scene = {
   type?: string
   nameFilter?: string
-  onEmpty: (msg: string) => void
+  onFilter: (value: boolean) => void
 }
 
-export default function Scene({ type, nameFilter, onEmpty }: Scene) {
-  const bulb = useBulbStore((state) => state.bulb)
+export default function Scene({ type, nameFilter, onFilter }: Scene) {
+  const { t } = useTranslation()
 
   const isShowingAll = !type
   const isFilteringByName = nameFilter && nameFilter.length > 0
 
   const filterByType = (scene: (typeof scenes)[0]) => isShowingAll || scene.type === type
   const filterByName = (scene: (typeof scenes)[0]) =>
-    !isFilteringByName || scene.name.toLowerCase().includes(nameFilter!.toLowerCase())
+    !isFilteringByName ||
+    t(`scenes.names.${scene.name}`).toLowerCase().includes(nameFilter!.toLowerCase())
 
   const filteredScenes = scenes.filter(filterByType).filter(filterByName)
-  const customScenes = bulb ? bulb.customColors : []
 
-  const areScenesEmpty = filteredScenes.length === 0 && customScenes.length === 0
+  const areScenesEmpty = filteredScenes.length === 0
+  console.log(filteredScenes, areScenesEmpty)
 
   if (areScenesEmpty) {
-    onEmpty('No scenes found, try another search term')
+    onFilter(false)
+  } else {
+    onFilter(true)
   }
 
   return (
     <>
       {filteredScenes.map((scene) => (
-        <SceneItem id={scene.id} key={scene.id} name={scene.name} icon={scene.icon} />
+        <SceneItem
+          id={scene.id}
+          key={scene.id}
+          name={t(`scenes.names.${scene.name}`)}
+          icon={scene.icon}
+        />
       ))}
     </>
   )

@@ -28,17 +28,17 @@ export default function Home() {
 
   return (
     <section className="py-8 px-8">
-      <h1 className="font-bold text-4xl">{t('dashboard')}</h1>
+      <h1 className="font-bold text-4xl">{t('home.title')}</h1>
 
       <article className="mt-14 grid grid-cols-3 gap-8 w-fit">
         {bulb ? <BulbCard bulb={bulb} menuItems={menuItems} /> : <SearchBulbCard />}
         <Button
           variant="secondary"
           onClick={() => toggleModal('ip')}
-          className="flex flex-col items-center justify-center w-48"
+          className="flex flex-col items-center justify-center w-48 "
         >
           <LuCirclePlus size={32} strokeWidth={1} />
-          <p className="mt-2 text-lg">{t('ip.add')}</p>
+          <p className="mt-2 text-lg">{t('home.add.entry')}</p>
         </Button>
       </article>
 
@@ -48,8 +48,8 @@ export default function Home() {
           <DeleteDialog
             isOpen={modals.delete}
             onClose={() => toggleModal('delete')}
-            title="Delete bulb"
-            description={`Are you sure you want to delete the bulb ${bulb.name}?`}
+            title={t('home.delete.title')}
+            description={`${t('home.delete.message')} "${bulb.name}"?`}
             onConfirm={() => alert('WIP')}
           />
         </>

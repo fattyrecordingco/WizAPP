@@ -1,7 +1,9 @@
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function BrightnessSlider() {
+  const { t } = useTranslation()
   const bulb = useBulbStore((state) => state.bulb)
   const setBrightness = useBulbStore((state) => state.setBrightness)
 
@@ -26,7 +28,7 @@ export default function BrightnessSlider() {
   return (
     <div>
       <label className="text-xs text-neutral-400/75 subpixel-antialiased">
-        Brightness: {currentBrightness}%
+        {t('sidebar.brightness')}: {currentBrightness}%
       </label>
       <input
         aria-label="Brightness control"

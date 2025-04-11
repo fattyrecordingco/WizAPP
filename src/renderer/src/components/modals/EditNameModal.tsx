@@ -1,5 +1,6 @@
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Modal from '../ui/Modal'
 
 type EditNameModalProps = {
@@ -9,23 +10,24 @@ type EditNameModalProps = {
 
 export default function EditNameModal({ isOpen, onClose }: EditNameModalProps) {
   const bulb = useBulbStore((state) => state.bulb)
+  const { t } = useTranslation()
   const setBulbName = useBulbStore((state) => state.setBulbName)
 
   const [error, setError] = useState<string | null>(null)
 
   const validateName = (name: string) => {
     if (name.length <= 0) {
-      setError('Name cannot be empty')
+      setError(t('errors.emptyName'))
       return false
     }
 
     if (name.length > 15) {
-      setError('Name cannot be longer than 15 characters')
+      setError(t('errors.longName'))
       return false
     }
 
     if (name === bulb.name) {
-      setError('Name cannot be the same as the current name')
+      setError(t('errors.sameName'))
       return false
     }
 
@@ -57,10 +59,10 @@ export default function EditNameModal({ isOpen, onClose }: EditNameModalProps) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Edit bulb name">
+    <Modal isOpen={isOpen} onClose={onClose} title={t('home.edit.title')}>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name" className="text-neutral-400 block mb-2">
-          New name
+          {t('home.edit.label')}
         </label>
         <input
           type="text"
@@ -79,13 +81,13 @@ export default function EditNameModal({ isOpen, onClose }: EditNameModalProps) {
             type="button"
             onClick={onClose}
           >
-            Cancel
+            {t('modals.cancel')}
           </button>
           <button
             type="submit"
             className="mt-4 px-4 bg-primary rounded-lg text-white py-2 transition-colors cursor-pointer font-medium hover:bg-primary-600"
           >
-            Save
+            {t('modals.save')}
           </button>
         </footer>
       </form>

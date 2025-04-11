@@ -1,6 +1,7 @@
 import { CustomColor } from '@/types/customColor'
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LuHeart, LuPlus, LuSquarePen, LuTrash } from 'react-icons/lu'
 import CustomSceneItem from './CustomSceneItem'
 import CustomColorModal from './modals/CustomColorModal'
@@ -9,14 +10,15 @@ import DeleteDialog from './modals/DeleteDialog'
 type CustomSceneProps = {
   showBtnButton?: boolean
   nameFilter?: string
-  onEmpty: (msg: string) => void
+  onFilter: (value) => void
 }
 
 export default function CustomScene({
   showBtnButton = false,
   nameFilter,
-  onEmpty
+  onFilter
 }: CustomSceneProps) {
+  const { t } = useTranslation()
   const bulb = useBulbStore((state) => state.bulb)
   const removeCustomColor = useBulbStore((state) => state.removeCustomColor)
   const toggleFavoriteColor = useBulbStore((state) => state.toggleFavoriteColor)
@@ -65,7 +67,7 @@ export default function CustomScene({
       disabled={!bulb}
     >
       <LuPlus size={24} />
-      <span>Add custom</span>
+      <span>{t('scenes.custom.add.entry')}</span>
     </button>
   )
 
@@ -74,7 +76,6 @@ export default function CustomScene({
   }
 
   if (!bulb || !bulb.customColors || bulb.customColors.length === 0) {
-    onEmpty('No custom colors found, try adding one first')
     if (showBtnButton) {
       return (
         <>
@@ -90,8 +91,6 @@ export default function CustomScene({
     }
 
     return null
-  } else {
-    onEmpty('')
   }
 
   const isFilteringByName = nameFilter && nameFilter.length > 0
@@ -104,23 +103,27 @@ export default function CustomScene({
   const areScenesEmpty = customScenes.length === 0
 
   if (areScenesEmpty && showBtnButton) {
-    onEmpty('No custom colors found, try adding one first')
+    onFilter(false)
     return null
+  } else {
+    onFilter(true)
   }
 
   const getMenuOptions = (scene: CustomColor) => [
     {
-      label: bulb.favoriteColors.includes(scene.id) ? 'Unfavorite' : 'Favorite',
+      label: bulb.favoriteColors.includes(scene.id)
+        ? t('scenes.custom.unfav')
+        : t('scenes.custom.fav'),
       icon: <LuHeart size={20} />,
       onClick: () => handleToggleFavoriteColor(scene)
     },
     {
-      label: 'Edit',
+      label: t('scenes.custom.edit.entry'),
       icon: <LuSquarePen size={20} />,
       onClick: () => handleEditCustomColor(scene)
     },
     {
-      label: 'Delete',
+      label: t('scenes.custom.delete.entry'),
       icon: <LuTrash size={20} />,
       onClick: () => handleOpenDeleteDialog(scene)
     }
@@ -146,8 +149,8 @@ export default function CustomScene({
       <DeleteDialog
         isOpen={isDeleteDialogOpen}
         onClose={handleCloseDeleteDialog}
-        title="Delete custom color"
-        description={`Are you sure you want to delete ${selectedColor?.name} custom color?`}
+        title={t('scenes.custom.delete.title')}
+        description={`${t('scenes.custom.delete.message')} "${selectedColor?.name}"?`}
         onConfirm={handleRemoveCustomColor}
       />
     </>

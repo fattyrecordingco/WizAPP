@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Modal from '../ui/Modal'
 
 type EditNameModalProps = {
@@ -7,6 +8,7 @@ type EditNameModalProps = {
 }
 
 export default function AddDeviceModal({ isOpen, onClose }: EditNameModalProps) {
+  const { t } = useTranslation()
   const [error, setError] = useState<string | null>(null)
   const areErrors = error !== null
 
@@ -49,7 +51,7 @@ export default function AddDeviceModal({ isOpen, onClose }: EditNameModalProps) 
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Add Device">
+    <Modal isOpen={isOpen} onClose={onClose} title={t('home.add.title')}>
       <form onSubmit={handleSubmit}>
         <label htmlFor="ip" className="text-neutral-400 block mb-2">
           IP
@@ -58,7 +60,7 @@ export default function AddDeviceModal({ isOpen, onClose }: EditNameModalProps) 
           type="text"
           id="ip"
           name="ip"
-          placeholder="e.g. 192.168.1.34"
+          placeholder={t('home.add.example')}
           onChange={resetError}
           className={`w-full bg-secondary-700 text-white p-2 rounded-lg border ${areErrors ? 'border-red-500' : 'border-neutral-600'} focus:outline-none focus:border-primary focus:border-2 `}
         />
@@ -71,13 +73,13 @@ export default function AddDeviceModal({ isOpen, onClose }: EditNameModalProps) 
             type="button"
             onClick={onClose}
           >
-            Cancel
+            {t('modals.cancel')}
           </button>
           <button
             type="submit"
             className="mt-4 px-4 bg-primary rounded-lg text-white py-2 transition-colors cursor-pointer font-medium hover:bg-primary-600"
           >
-            Add
+            {t('modals.add')}
           </button>
         </footer>
       </form>

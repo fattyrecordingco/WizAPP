@@ -1,25 +1,62 @@
 {
-  "lightTitle": "Focos",
-  "searchingBulb": {
-    "search": "Buscando Foco...",
-    "notFound": "No se encuentra?",
-    "manual": "Añadir manualmente"
+  "home": {
+    "title": "Inicio",
+    "search": "Buscando bombillas",
+    "add": {
+      "title": "Agregar dispositivo",
+      "entry": "Agregar",
+      "example": "ej. 192.168.1.34"
+    },
+    "toggle": "Alternar",
+    "edit": {
+      "entry": "Editar nombre",
+      "title": "Editar nombre de la bombilla",
+      "label": "Nuevo nombre",
+      "example": "ej. Sala de estar"
+    },
+    "delete": {
+      "entry": "Eliminar",
+      "title": "Eliminar bombilla",
+      "message": "¿Estás seguro de que deseas eliminar la bombilla "
+    }
   },
-  "ChangeBulbName": "Cambiar nombre",
-  "SaveChanges": "Guardar Cambios",
-  "MadeBy": "Hecho por ",
-  "Scenes": "Escenas",
-  "Devices": "Información",
-  "ip": {
-    "add": "Agregar un foco",
-    "placeholder": "Escribe una IP",
-    "invalid": "Escribe una IP valida",
-    "valid": "Se ve bien!"
-  },
-  "close": "Cerrar",
   "scenes": {
-    "static": {
-      "title": "Estática",
+    "title": "Escenas",
+    "favorites": "Favoritas",
+    "missingFavorites": "Aún no has seleccionado ninguna favorita. Intenta seleccionar una.",
+    "available": "Disponibles",
+    "tags": {
+      "all": "Todas",
+      "static": "Estática",
+      "dynamic": "Dinámica",
+      "custom": "Personalizada"
+    },
+    "notFound": "No se encontraron escenas, prueba con otro término de búsqueda",
+    "search": "Buscar escenas",
+    "custom": {
+      "missing": "No se encontraron colores personalizados. Intenta agregar uno primero.",
+      "fav": "Favorito",
+      "unfav": "Quitar favorito",
+      "add": {
+        "entry": "Agregar",
+        "title": "Agregar color personalizado",
+        "nameLabel": "Nombre",
+        "nameExample": "ej. Rojo",
+        "colorLabel": "Color"
+      },
+      "edit": {
+        "entry": "Editar",
+        "title": "Editar color personalizado",
+        "label": "Nuevo nombre",
+        "example": "ej. Sala de estar"
+      },
+      "delete": {
+        "entry": "Eliminar",
+        "title": "Eliminar color personalizado",
+        "message": "¿Estás seguro de que deseas eliminar el color personalizado "
+      }
+    },
+    "names": {
       "whites": "Blanco",
       "warmWhite": "Blanco cálido",
       "dayLight": "Luz de día",
@@ -31,11 +68,7 @@
       "relax": "Relax",
       "focus": "Concentración",
       "tvTime": "Hora de la TV",
-      "plantGrowth": "Plantas"
-    },
-    "dynamic": {
-      "title": "Dinámica",
-      "whites": "Blanco",
+      "plantGrowth": "Plantas",
       "candleLight": "Luz de vela",
       "pulse": "Pulso",
       "goldenWhite": "Blanco dorado",
@@ -60,41 +93,75 @@
       "progressive": "Progresivo",
       "bedtime": "Acostarse",
       "wakeUp": "Despertarse"
-    },
-    "custom": {
-      "title": "Colores",
-      "customColors": "Colores personalizados",
-      "new": "Nuevo",
-      "addColor": "Agregar nuevo color",
-      "name": "Nombre",
-      "namePlaceholder": "ej. Rojo",
-      "pickColor": "Seleccionar color",
-      "pickColorPlaceholder": "Selecciona un color",
-      "add": "Agregar",
-      "editColor": "Editar Color"
     }
   },
-  "remove": "Eliminar",
-  "device": {
+  "information": {
     "title": "Información",
-    "moduleName": "Nombre del Módulo",
-    "ipAddress": "Dirección IP",
+    "moduleName": "Nombre del módulo",
+    "ip": "Dirección IP",
     "port": "Puerto",
-    "macAddress": "Dirección MAC",
-    "status": "Estado",
-    "sceneId": "ID de la Escena",
-    "brightness": "Brillo",
-    "firmwareVersion": "Versión del Firmware",
+    "mac": "Dirección MAC",
+    "state": "Estado",
+    "sceneId": "ID de escena",
+    "firmwareVersion": "Versión del firmware",
     "homeId": "ID del hogar",
-    "roomId": "ID de la Habitación"
+    "roomId": "ID de la habitación"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "theme": {
+      "title": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "language": {
+      "title": "Idioma",
+      "auto": "Automático",
+      "english": "Inglés",
+      "spanish": "Español"
+    },
+    "deleteProfile": {
+      "title": "Eliminar perfil",
+      "button": "Eliminar"
+    }
+  },
+  "help": {
+    "title": "Ayuda",
+    "version": "Versión",
+    "source": "Código fuente",
+    "author": "Autor",
+    "checkUpdates": "Buscar actualizaciones",
+    "checkingUpdates": "Buscando actualizaciones...",
+    "openFolder": "Abrir carpeta del programa",
+    "noUpdates": "No hay actualizaciones disponibles"
+  },
+  "sidebar": {
+    "menu": "Menú",
+    "home": "Inicio",
+    "scenes": "Escenas",
+    "information": "Información",
+    "settings": "Ajustes",
+    "help": "Ayuda",
+    "brightness": "Brillo"
+  },
+  "modals": {
+    "add": "Agregar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar"
+  },
+  "errors": {
+    "emptyName": "El nombre no puede estar vacío",
+    "longName": "El nombre no puede tener más de 15 caracteres",
+    "sameName": "El nombre no puede ser igual al nombre actual",
+    "emptyIp": "La dirección IP no puede estar vacía",
+    "longIP": "La dirección IP no puede tener más de 15 caracteres",
+    "invalidIP": "Esa no parece una dirección IP válida"
   },
   "tray": {
     "show": "Mostrar",
     "quit": "Salir",
-    "toggle": "Encender/Apagar"
-  },
-  "updateDialog": {
-    "title": "Actualización de WiZ App Available",
-    "message": "Hay una nueva versión disponible. ¿Desea descargar"
+    "toggle": "Alternar bombilla"
   }
 }

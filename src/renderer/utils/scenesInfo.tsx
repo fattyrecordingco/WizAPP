@@ -35,193 +35,193 @@ const ICON_SIZE = 24
 export const scenes: Scene[] = [
   {
     id: 11,
-    name: 'Warm White',
+    name: 'warmWhite',
     icon: <FaMugHot size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 12,
-    name: 'Day Light',
+    name: 'dayLight',
     icon: <BsSunFill size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 13,
-    name: 'Cold White',
+    name: 'coldWhite',
     icon: <FaSnowflake size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 14,
-    name: 'Night Light',
+    name: 'nightLight',
     icon: <FaMoon size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 6,
-    name: 'Cozy',
+    name: 'cozy',
     icon: <FaCouch size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 17,
-    name: 'True Colors',
+    name: 'trueColors',
     icon: <FaPalette size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 16,
-    name: 'Relax',
+    name: 'relax',
     icon: <PiFlowerLotusBold size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 15,
-    name: 'Focus',
+    name: 'focus',
     icon: <FaGlasses size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 18,
-    name: 'TV Time',
+    name: 'tvTime',
     icon: <FaTv size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 19,
-    name: 'Plant Growth',
+    name: 'plantGrowth',
     icon: <RiPlantFill size={ICON_SIZE} />,
     type: 'static'
   },
   {
     id: 29,
-    name: 'Candle Light',
+    name: 'candleLight',
     icon: <GiCandleHolder size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 31,
-    name: 'Pulse',
+    name: 'pulse',
     icon: <RiPulseFill size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 30,
-    name: 'Golden White',
+    name: 'goldenWhite',
     icon: <MdSunny size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 32,
-    name: 'Steampunk',
+    name: 'steampunk',
     icon: <GiSteampunkGoggles size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 5,
-    name: 'Fireplace',
+    name: 'fireplace',
     icon: <TbCampfireFilled size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 22,
-    name: 'Fall',
+    name: 'fall',
     icon: <FaCanadianMapleLeaf size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 26,
-    name: 'Club',
+    name: 'club',
     icon: <IoMdMicrophone size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 3,
-    name: 'Sunset',
+    name: 'sunset',
     icon: <BsFillSunsetFill size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 2,
-    name: 'Romance',
+    name: 'romance',
     icon: <FaHeart size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 4,
-    name: 'Party',
+    name: 'party',
     icon: <LuPartyPopper size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 8,
-    name: 'Pastel Colors',
+    name: 'pastelColors',
     icon: <HiColorSwatch size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 20,
-    name: 'Spring',
+    name: 'spring',
     icon: <PiTreeFill size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 21,
-    name: 'Summer',
+    name: 'summer',
     icon: <GiPalmTree size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 7,
-    name: 'Forest',
+    name: 'forest',
     icon: <MdForest size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 24,
-    name: 'Jungle',
+    name: 'jungle',
     icon: <GiHighGrass size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 25,
-    name: 'Mojito',
+    name: 'mojito',
     icon: <FaMartiniGlass size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 1,
-    name: 'Ocean',
+    name: 'ocean',
     icon: <MdWaves size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 23,
-    name: 'Deep Dive',
+    name: 'deepDive',
     icon: <IoFish size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 27,
-    name: 'Christmas',
+    name: 'christmas',
     icon: <FaCandyCane size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 28,
-    name: 'Halloween',
+    name: 'halloween',
     icon: <RiGhostFill size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 10,
-    name: 'Bedtime',
+    name: 'bedtime',
     icon: <FaBed size={ICON_SIZE} />,
     type: 'dynamic'
   },
   {
     id: 9,
-    name: 'Wake Up',
+    name: 'wakeUp',
     icon: <BsSunriseFill size={ICON_SIZE} />,
     type: 'dynamic'
   }

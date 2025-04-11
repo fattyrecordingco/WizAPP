@@ -1,22 +1,25 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LuSquarePen, LuToggleLeft, LuTrash } from 'react-icons/lu'
 import { MenuItemType, ModalType } from '../types/modals'
 
 export function useBulbMenuItems(toggleBulb: () => void, toggleModal: (modal: ModalType) => void) {
+  const { t } = useTranslation()
+
   return useMemo(
     (): MenuItemType[] => [
       {
-        label: 'Toggle',
+        label: t('home.toggle'),
         icon: <LuToggleLeft size={20} />,
         onClick: toggleBulb
       },
       {
-        label: 'Change name',
+        label: t('home.edit.entry'),
         icon: <LuSquarePen size={20} />,
         onClick: () => toggleModal('edit')
       },
       {
-        label: 'Delete',
+        label: t('home.delete.entry'),
         icon: <LuTrash size={20} />,
         onClick: () => toggleModal('delete')
       }

@@ -1,6 +1,7 @@
 import { CustomColor } from '@/types/customColor'
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Modal from '../ui/Modal'
 
 type ModalCustomColorProps = {
@@ -10,6 +11,7 @@ type ModalCustomColorProps = {
 }
 
 export default function CustomColorModal({ isOpen, onClose, editingColor }: ModalCustomColorProps) {
+  const { t } = useTranslation()
   const addCustomColor = useBulbStore((state) => state.addCustomColor)
   const editCustomColor = useBulbStore((state) => state.editCustomColor)
 
@@ -31,7 +33,10 @@ export default function CustomColorModal({ isOpen, onClose, editingColor }: Moda
 
   const validateName = (name: string) => {
     if (name.length === 0) {
-      setError('Name is required')
+      setError(t('errors.emptyName'))
+      return false
+    } else if (name.length > 10) {
+      setError(t('errors.customLongName'))
       return false
     }
 
@@ -56,16 +61,20 @@ export default function CustomColorModal({ isOpen, onClose, editingColor }: Moda
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Add Custom Color">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={editingColor ? t('scenes.custom.edit.title') : t('scenes.custom.add.title')}
+    >
       <form onSubmit={handleSubmit}>
         <label htmlFor="name" className="text-neutral-400 block mb-2">
-          Name
+          {editingColor ? t('scenes.custom.edit.label') : t('scenes.custom.add.nameLabel')}
         </label>
         <input
           type="text"
           id="name"
           name="name"
-          placeholder="e.g. Red"
+          placeholder={t('scenes.custom.add.nameExample')}
           defaultValue={editingColor?.name}
           onChange={resetError}
           className={`w-full bg-secondary-700 text-white p-2 rounded-lg border ${areErrors ? 'border-red-500' : 'border-neutral-600'} focus:outline-none focus:border-primary focus:border-2 `}
@@ -74,7 +83,7 @@ export default function CustomColorModal({ isOpen, onClose, editingColor }: Moda
         {areErrors && <p className="text-red-500 text-sm mt-1 ms-1 font-medium">{error}</p>}
 
         <label htmlFor="color" className="text-neutral-400 block mt-4 mb-2">
-          Color
+          {t('scenes.custom.add.colorLabel')}
         </label>
 
         <div
@@ -99,13 +108,13 @@ export default function CustomColorModal({ isOpen, onClose, editingColor }: Moda
             type="button"
             onClick={onClose}
           >
-            Cancel
+            {t('modals.cancel')}
           </button>
           <button
             type="submit"
             className="mt-4 px-4 bg-primary rounded-lg text-white py-2 transition-colors cursor-pointer font-medium hover:bg-primary-600"
           >
-            Add
+            {editingColor ? t('modals.save') : t('modals.add')}
           </button>
         </footer>
       </form>

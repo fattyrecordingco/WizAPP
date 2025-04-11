@@ -2,15 +2,17 @@ import logo from '@assets/logo_sidebar.png'
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { SidebarModalState } from '@renderer/types/modals'
 import { ReactNode, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LuCircleHelp, LuImages, LuInfo, LuLayoutDashboard, LuSettings } from 'react-icons/lu'
 import BulbShortcut from '../BulbShortcut'
 import MenuLink from '../MenuLink'
-import AboutModal from '../modals/AboutModal'
+import HelpModal from '../modals/HelpModal'
 import SettingsModal from '../modals/SettingsModal'
 import Button from './Button'
 import Separator from './Separator'
 
 export default function Sidebar() {
+  const { t } = useTranslation()
   const bulb = useBulbStore((state) => state.bulb)
   const [modals, setModals] = useState<SidebarModalState>({
     about: false,
@@ -43,11 +45,17 @@ export default function Sidebar() {
       <Separator />
 
       <div className="flex-grow-1">
-        <p className="text-neutral-500 text-xs subpixel-antialiased mb-3 ps-2">Menu</p>
+        <p className="text-neutral-500 text-xs subpixel-antialiased mb-3 ps-2">
+          {t('sidebar.menu')}
+        </p>
         <ul className="text-white flex flex-col gap-2">
-          <MenuLink label="Dashboard" to="/" icon={<LuLayoutDashboard size={20} />} />
-          <MenuLink label="Scenes" to="/scenes" icon={<LuImages size={20} />} />
-          <MenuLink label="Information" to="/information" icon={<LuInfo size={20} />} />
+          <MenuLink label={t('sidebar.home')} to="/" icon={<LuLayoutDashboard size={20} />} />
+          <MenuLink label={t('sidebar.scenes')} to="/scenes" icon={<LuImages size={20} />} />
+          <MenuLink
+            label={t('sidebar.information')}
+            to="/information"
+            icon={<LuInfo size={20} />}
+          />
         </ul>
       </div>
 
@@ -56,12 +64,16 @@ export default function Sidebar() {
 
       <div>
         <ul className="text-white flex flex-col gap-2">
-          {renderMenuOption(<LuSettings size={20} />, 'Settings', () => toggleModal('settings'))}
-          {renderMenuOption(<LuCircleHelp size={20} />, 'Help', () => toggleModal('about'))}
+          {renderMenuOption(<LuSettings size={20} />, t('sidebar.settings'), () =>
+            toggleModal('settings')
+          )}
+          {renderMenuOption(<LuCircleHelp size={20} />, t('sidebar.help'), () =>
+            toggleModal('about')
+          )}
         </ul>
       </div>
 
-      <AboutModal isOpen={modals.about} onClose={() => toggleModal('about')} />
+      <HelpModal isOpen={modals.about} onClose={() => toggleModal('about')} />
       <SettingsModal isOpen={modals.settings} onClose={() => toggleModal('settings')} />
     </aside>
   )
