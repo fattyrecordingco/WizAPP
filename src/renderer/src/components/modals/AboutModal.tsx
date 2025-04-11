@@ -45,7 +45,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
 
       <article className="flex flex-col gap-1 mt-8">
         <div className="flex items-center gap-2">
-          <LuGithub size={20} />
+          <LuGithub size={24} />
           <p>Source code:</p>
           <a
             href="https://github.com/MatiasTK/WizAPP"
@@ -58,7 +58,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
         </div>
 
         <div className="flex items-center gap-2 mt-4">
-          <LuUser size={20} />
+          <LuUser size={24} />
           <p>Author:</p>
           <p>
             Matias Vallejos (
