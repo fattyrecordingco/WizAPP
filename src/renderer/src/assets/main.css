@@ -105,5 +105,5 @@ a {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-700);
+  background: var(--color-primary-500);
 }
