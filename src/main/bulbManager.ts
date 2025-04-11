@@ -2,7 +2,7 @@ import { BulbConfig } from '@/types/bulbConfig'
 import { BulbState } from '@/types/bulbState'
 import { systemConfig } from '@/types/systemConfig'
 import { CONFIG, DISCOVER_TIMEOUT, MAX_DEFAULT_COLORS } from '@constants'
-import { Bulb, discover } from '@lib/wikari/src/mod'
+import { Bulb, discover, SCENES } from '@lib/wikari/src/mod'
 import { BrowserWindow } from 'electron'
 import log from 'electron-log'
 import fs from 'fs'
@@ -124,14 +124,17 @@ class BulbManager {
       port: this.bulb.bulbPort,
       name: configData && configData.bulbName ? configData.bulbName : configResult.moduleName,
       customColors: configData && configData.customColors ? configData.customColors : [],
-      favoriteColors: configData && configData.favoriteColors ? configData.favoriteColors : []
+      favoriteColors:
+        configData && configData.favoriteColors
+          ? configData.favoriteColors
+          : [SCENES['Warm White'], SCENES['Daylight'], SCENES['Night Light'], SCENES['Cozy']]
     }
 
     this.appData = {
       bulbIp: this.bulbState.ip,
       bulbName: this.bulbState.name,
       customColors: this.bulbState.customColors,
-      favoriteColors: []
+      favoriteColors: this.bulbState.favoriteColors
     }
     this.saveConfig()
 
