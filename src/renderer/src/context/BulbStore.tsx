@@ -19,14 +19,17 @@ interface BulbStore {
 
 export const useBulbStore = create<BulbStore>((set) => ({
   bulb: {} as BulbState,
-  updateBulbState: (bulb: BulbState) => {
-    set({ bulb })
-  },
+  updateBulbState: (bulb: BulbState) => set({ bulb }),
   toggleBulb: async () => {
     log.debug('[RENDERER] Toggling bulb state')
     await window.api.toggleBulb()
   },
   setBrightness: async (brightness: number) => {
+    if (brightness === useBulbStore.getState().bulb.dimming) {
+      log.debug('[RENDERER] Brightness is already set to this value')
+      return
+    }
+
     log.debug('[RENDERER] Setting brightness')
     await window.api.setBrightness(brightness)
   },
@@ -39,14 +42,31 @@ export const useBulbStore = create<BulbStore>((set) => ({
     await window.api.setIp(ip)
   },
   setScene: async (sceneId: number) => {
+    if (sceneId === useBulbStore.getState().bulb.sceneId) {
+      log.debug('[RENDERER] Scene is already set to this value')
+      return
+    }
+
     log.debug('[RENDERER] Setting scene')
     await window.api.setScene(sceneId)
   },
   addCustomColor: async (colorName: string, colorHex: string) => {
+    const customColors = useBulbStore.getState().bulb.customColors
+    const colorExists = customColors.some((color) => color.name === colorName)
+    if (colorExists) {
+      log.debug('[RENDERER] Custom color already exists')
+      return
+    }
+
     log.debug('[RENDERER] Adding custom color')
     await window.api.addCustomColor(colorName, colorHex)
   },
   setCustomColor: async (colorId: number) => {
+    if (colorId === useBulbStore.getState().bulb.sceneId) {
+      log.debug('[RENDERER] Custom color is already set to this value')
+      return
+    }
+
     log.debug('[RENDERER] Setting custom color')
     await window.api.setCustomColor(colorId)
   },

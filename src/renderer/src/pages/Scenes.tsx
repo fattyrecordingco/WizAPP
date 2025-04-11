@@ -1,14 +1,13 @@
 import CustomScene from '@renderer/components/CustomScene'
 import FavoriteScene from '@renderer/components/FavoriteScene'
 import Scene from '@renderer/components/Scene'
-import { useBulbStore } from '@renderer/context/BulbStore'
 import useDebounce from '@renderer/hooks/useDebounce'
 import { useState } from 'react'
-import { LuX } from 'react-icons/lu'
+import { LuSearch, LuX } from 'react-icons/lu'
 
 export default function Scenes() {
   // TODO: Debounce value
-  const bulb = useBulbStore((state) => state.bulb)
+  // const bulb = useBulbStore((state) => state.bulb)
   const [searchValue, setSearchValue] = useState('')
   const [notFoundMessage, setNotFoundMessage] = useState('')
   const debouncedSearch = useDebounce(searchValue, 500)
@@ -97,24 +96,27 @@ export default function Scenes() {
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">Available</h2>
           <div className="relative">
-            <input
-              type="search"
-              value={searchValue}
-              onChange={handleChangeSearch}
-              placeholder="Search scenes"
-              className="bg-secondary-700 text-white ps-4 py-1 rounded-4xl placeholder:text-neutral-500 font-[450] placeholder:text-sm focus:outline-none focus:border-primary focus:border-2 [&::-webkit-search-cancel-button]:hidden"
-            />
-            {searchValue && (
-              <button
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-100 transition-colors cursor-pointer"
-                onClick={handleResetSearch}
-              >
-                <LuX size={20} />
-              </button>
-            )}
+            <div className="flex bg-secondary-700 text-white ps-4 py-1 rounded-4xl items-center focus-within:outline-none transition duration-300 focus-within:ring-primary focus-within:ring-2 gap-2">
+              <LuSearch size={18} className="text-neutral-500" />
+              <input
+                type="search"
+                value={searchValue}
+                onChange={handleChangeSearch}
+                placeholder="Search scenes"
+                className=" placeholder:text-neutral-500 font-[450] focus:outline-none placeholder:text-sm  [&::-webkit-search-cancel-button]:hidden"
+              />
+              {searchValue && (
+                <button
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-100 transition-colors cursor-pointer"
+                  onClick={handleResetSearch}
+                >
+                  <LuX size={20} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
-        <div className="mt-4 flex gap-2">
+        <div className="mt-3 flex gap-2">
           {renderTagButton('All')}
           {renderTagButton('Static')}
           {renderTagButton('Dynamic')}

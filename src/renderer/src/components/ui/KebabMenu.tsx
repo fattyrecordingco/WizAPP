@@ -11,7 +11,10 @@ type KebabMenuProps = {
 
 export default function KebabMenu({ items }: KebabMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [menuPosition, setMenuPosition] = useState({ right: false, bottom: false })
   const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -23,6 +26,23 @@ export default function KebabMenu({ items }: KebabMenuProps) {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+
+  useEffect(() => {
+    if (isOpen && buttonRef.current && dropdownRef.current) {
+      const buttonRect = buttonRef.current.getBoundingClientRect()
+      const menuRect = dropdownRef.current.getBoundingClientRect()
+      const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
+
+      // Check if menu goes off screen on the right
+      const exceedsRight = buttonRect.left + menuRect.width > viewportWidth
+
+      // Check if menu goes off screen on the bottom
+      const exceedsBottom = buttonRect.bottom + menuRect.height > viewportHeight
+
+      setMenuPosition({ right: exceedsRight, bottom: exceedsBottom })
+    }
+  }, [isOpen])
 
   const handleToggle = (e) => {
     e.stopPropagation()
@@ -38,6 +58,7 @@ export default function KebabMenu({ items }: KebabMenuProps) {
   return (
     <div className="relative" ref={menuRef}>
       <button
+        ref={buttonRef}
         className="cursor-pointer text-neutral-300 hover:text-white transition-all duration-300 rounded-xl p-1"
         onClick={handleToggle}
       >
@@ -45,12 +66,17 @@ export default function KebabMenu({ items }: KebabMenuProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-5 mt-2 py-2 w-48 bg-secondary-700 rounded-md shadow-lg z-50 border border-secondary-500 transition-all animate-fade-in-down animate-steps-modern animate-duration-200">
+        <div
+          ref={dropdownRef}
+          className={`absolute py-2 w-48 bg-secondary-700 rounded-md shadow-lg z-50 border border-secondary-500 transition-all animate-fade-in-down animate-steps-modern animate-duration-200
+            ${menuPosition.right ? 'right-0' : 'left-0'}
+            ${menuPosition.bottom ? 'bottom-5 mb-2' : 'top-5 mt-2'}`}
+        >
           {items.map((item, index) => (
             <button
               key={index}
               onClick={(e) => handleClickItem(e, item)}
-              className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-secondary-600 cursor-pointer"
+              className="block text-left ps-4 ms-2 w-44 py-2 text-sm text-white rounded-md hover:bg-secondary-500 cursor-pointer"
             >
               {item.icon ? (
                 <p className="flex items-center gap-2">

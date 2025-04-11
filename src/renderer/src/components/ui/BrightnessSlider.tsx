@@ -31,7 +31,7 @@ export default function BrightnessSlider() {
       <input
         aria-label="Brightness control"
         type="range"
-        min={0}
+        min={10}
         max={100}
         onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
