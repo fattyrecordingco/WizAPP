@@ -53,13 +53,19 @@ const registerIPCEvents = (BulbManager: BulbManager) => {
   })
 
   ipcMain.handle('check-for-updates', async () => {
-    await autoUpdater.checkForUpdatesAndNotify()
+    const result = await autoUpdater.checkForUpdates()
 
     autoUpdater.on('update-available', () => {
       return true
     })
 
-    return false
+    autoUpdater.on('update-not-available', () => {
+      return false
+    })
+
+    return result?.updateInfo && result.versionInfo
+      ? result.updateInfo.version !== result.versionInfo.version
+      : false
   })
 
   ipcMain.handle('get-language', () => {
