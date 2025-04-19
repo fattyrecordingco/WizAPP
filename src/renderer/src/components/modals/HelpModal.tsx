@@ -34,7 +34,7 @@ export default function HelpModal({ isOpen, onClose }: AboutModalProps) {
   }
 
   const updateToast = (msg) => (
-    <div className="fixed -bottom-14 left-1/2 transform -translate-x-1/2 bg-neutral-800 text-white px-4 py-2 font-medium rounded-lg shadow-lg animated animate-fade-in">
+    <div className="fixed -bottom-14 left-1/2 transform -translate-x-1/2 bg-neutral-800 text-white px-4 py-2 font-medium rounded-lg shadow-lg animated animate-fade-in whitespace-nowrap">
       {msg}
     </div>
   )

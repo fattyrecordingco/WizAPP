@@ -84,7 +84,30 @@ export default function Scenes() {
 
   return (
     <section className="py-8 px-8 w-full">
-      <h1 className="font-bold text-4xl">{t('scenes.title')}</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="font-bold text-4xl">{t('scenes.title')}</h1>
+        <div className="relative flex bg-secondary-700 text-white ps-4 py-1 rounded-xl items-center focus-within:outline-none transition duration-300 focus-within:ring-primary focus-within:ring-2 gap-2">
+          <LuSearch size={18} className="text-neutral-500" />
+          <input
+            type="search"
+            value={searchValue}
+            onChange={handleChangeSearch}
+            placeholder={t('scenes.search')}
+            className=" placeholder:text-neutral-500 font-[450] focus:outline-none placeholder:text-sm  [&::-webkit-search-cancel-button]:hidden"
+          />
+          {searchValue && (
+            <button
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-100 transition-colors cursor-pointer"
+              onClick={handleResetSearch}
+            >
+              <LuX size={20} />
+            </button>
+          )}
+        </div>
+      </div>
+      <h2 className="text-sm lg:text-lg mt-3 text-neutral-400 font-medium">
+        {t('scenes.subtitle')}
+      </h2>
       <article className="mt-8 w-full">
         <FavoriteScene />
       </article>
@@ -92,32 +115,12 @@ export default function Scenes() {
       <article className="mt-8 w-full">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">{t('scenes.available')}</h2>
-          <div className="relative">
-            <div className="flex bg-secondary-700 text-white ps-4 py-1 rounded-4xl items-center focus-within:outline-none transition duration-300 focus-within:ring-primary focus-within:ring-2 gap-2">
-              <LuSearch size={18} className="text-neutral-500" />
-              <input
-                type="search"
-                value={searchValue}
-                onChange={handleChangeSearch}
-                placeholder={t('scenes.search')}
-                className=" placeholder:text-neutral-500 font-[450] focus:outline-none placeholder:text-sm  [&::-webkit-search-cancel-button]:hidden"
-              />
-              {searchValue && (
-                <button
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-100 transition-colors cursor-pointer"
-                  onClick={handleResetSearch}
-                >
-                  <LuX size={20} />
-                </button>
-              )}
-            </div>
+          <div className="flex gap-2">
+            {renderTagButton('All')}
+            {renderTagButton('Static')}
+            {renderTagButton('Dynamic')}
+            {renderTagButton('Custom')}
           </div>
-        </div>
-        <div className="mt-4 flex gap-2">
-          {renderTagButton('All')}
-          {renderTagButton('Static')}
-          {renderTagButton('Dynamic')}
-          {renderTagButton('Custom')}
         </div>
       </article>
 

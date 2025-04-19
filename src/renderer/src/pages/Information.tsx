@@ -37,7 +37,16 @@ export default function Information() {
   return (
     <section className="py-8 px-8">
       <h1 className="font-bold text-4xl">{t('information.title')}</h1>
-      {bulb && renderCardInfo()}
+      <h2 className="text-sm lg:text-lg mt-2 text-neutral-400 font-medium">
+        {t('information.subtitle')}
+      </h2>
+      {bulb ? (
+        renderCardInfo()
+      ) : (
+        <div className="flex flex-col gap-4 mt-14 rounded-xl py-5 w-fit text-neutral-400">
+          <p>{t('information.missing')}</p>
+        </div>
+      )}
     </section>
   )
 }

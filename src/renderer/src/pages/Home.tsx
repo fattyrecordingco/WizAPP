@@ -1,4 +1,5 @@
 import BulbCard from '@renderer/components/BulbCard'
+import FavoriteScene from '@renderer/components/FavoriteScene'
 import AddDeviceModal from '@renderer/components/modals/AddDeviceModal'
 import DeleteDialog from '@renderer/components/modals/DeleteDialog'
 import EditNameModal from '@renderer/components/modals/EditNameModal'
@@ -29,13 +30,14 @@ export default function Home() {
   return (
     <section className="py-8 px-8">
       <h1 className="font-bold text-4xl">{t('home.title')}</h1>
+      <h2 className="text-sm lg:text-lg mt-2 text-neutral-400 font-medium">{t('home.subtitle')}</h2>
 
       <article className="mt-14 grid grid-cols-3 gap-8 w-fit">
         {bulb ? <BulbCard bulb={bulb} menuItems={menuItems} /> : <SearchBulbCard />}
         <Button
           variant="secondary"
           onClick={() => toggleModal('ip')}
-          className="flex flex-col items-center justify-center w-48 "
+          className="flex flex-col items-center justify-center w-48 g-1"
         >
           <LuCirclePlus size={32} strokeWidth={1} />
           <p className="mt-2 text-lg">{t('home.add.entry')}</p>
@@ -56,6 +58,10 @@ export default function Home() {
       )}
 
       <AddDeviceModal isOpen={modals.ip} onClose={() => toggleModal('ip')} />
+
+      <article className="mt-8 w-full">
+        <FavoriteScene />
+      </article>
     </section>
   )
 }
