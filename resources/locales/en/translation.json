@@ -1,6 +1,7 @@
 {
   "home": {
     "title": "Home",
+    "subtitle": "Manage your bulbs",
     "search": "Searching bulbs",
     "toggle": "Toggle",
     "edit": {
@@ -22,6 +23,7 @@
   },
   "scenes": {
     "title": "Scenes",
+    "subtitle": "Customize your lighting",
     "favorites": "Favorites",
     "missingFavorites": "You haven't selected any favorites yet. Try selecting one.",
     "available": "Available",
@@ -95,6 +97,8 @@
   },
   "information": {
     "title": "Information",
+    "subtitle": "Information about your WiZ lighting system",
+    "missing": "No information available. Try connecting to a bulb first.",
     "moduleName": "Module name",
     "ip": "IP address",
     "port": "Port",

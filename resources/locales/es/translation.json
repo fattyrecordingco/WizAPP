@@ -1,7 +1,8 @@
 {
   "home": {
     "title": "Inicio",
-    "search": "Buscando bombillas",
+    "subtitle": "Gestiona tus focos",
+    "search": "Buscando focos...",
     "add": {
       "title": "Agregar dispositivo",
       "entry": "Agregar",
@@ -22,6 +23,7 @@
   },
   "scenes": {
     "title": "Escenas",
+    "subtitle": "Personaliza la iluminación",
     "favorites": "Favoritas",
     "missingFavorites": "Aún no has seleccionado ninguna favorita. Intenta seleccionar una.",
     "available": "Disponibles",
@@ -97,6 +99,8 @@
   },
   "information": {
     "title": "Información",
+    "subtitle": "Información sobre tu sistema de iluminación WiZ",
+    "missing": "No hay información disponible. Intenta conectar una bombilla primero.",
     "moduleName": "Nombre del módulo",
     "ip": "Dirección IP",
     "port": "Puerto",
