@@ -13,7 +13,8 @@ export default defineConfig({
         '@/types': resolve('src/types'),
         '@constants': resolve('src/main/constants/index.ts'),
         '@main': resolve('src/main'),
-        '@i18n': resolve('src/i18n/index.ts')
+        '@i18n': resolve('src/i18n/index.ts'),
+        '@shared': resolve('src/shared'),
       }
     },
     plugins: [externalizeDepsPlugin()]

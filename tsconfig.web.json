@@ -7,6 +7,7 @@
     "src/preload/*.d.ts",
     "src/i18n/index.ts",
     "src/types/*.ts", "src/renderer/utils/scenesInfo.tsx",
+    "src/shared/**/*"
   ],
   "compilerOptions": {
     "composite": true,
@@ -23,6 +24,7 @@
       "@resources/*": ["resources/*"],
       "@/types/*": ["src/types/*"],
       "@pages/*": ["src/renderer/src/pages/*"],
+      "@shared/*": ["src/shared/*"],
     }
   }
 }

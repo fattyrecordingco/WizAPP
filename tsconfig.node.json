@@ -1,6 +1,6 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
-  "include": ["electron.vite.config.*", "src/main/**/*", "src/preload/**/*", "src/types/**/*", "src/lib/**/*", "src/i18n/**/*"],
+  "include": ["electron.vite.config.*", "src/main/**/*", "src/preload/**/*", "src/types/**/*", "src/lib/**/*", "src/i18n/**/*", "src/shared/**/*"],
   "compilerOptions": {
     "composite": true,
     "module": "NodeNext",
@@ -15,6 +15,7 @@
       "@constants": ["src/main/constants/index"],
       "@main/*" : ["src/main/*"],
       "@i18n": ["src/i18n/index"],
+      "@shared/*": ["src/shared/*"],
     }
   }
 }

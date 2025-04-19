@@ -1,4 +1,5 @@
 import { BulbState } from '@/types/bulbState'
+import { MAX_DEFAULT_COLORS } from '@shared/constants'
 import log from 'electron-log/renderer'
 import { create } from 'zustand'
 
@@ -37,6 +38,11 @@ export const useBulbStore = create<BulbStore>((set) => ({
     await window.api.setIp(ip)
   },
   setScene: async (sceneId: number) => {
+    if (sceneId >= MAX_DEFAULT_COLORS) {
+      log.debug('[RENDERER] Trying to set a custom color')
+      return useBulbStore.getState().setCustomColor(sceneId)
+    }
+
     log.debug('[RENDERER] Setting scene')
     await window.api.setScene(sceneId)
   },
@@ -52,6 +58,11 @@ export const useBulbStore = create<BulbStore>((set) => ({
     await window.api.addCustomColor(colorName, colorHex)
   },
   setCustomColor: async (colorId: number) => {
+    if (colorId < MAX_DEFAULT_COLORS) {
+      log.debug('[RENDERER] Trying to set a default color')
+      return useBulbStore.getState().setScene(colorId)
+    }
+
     log.debug('[RENDERER] Setting custom color')
     await window.api.setCustomColor(colorId)
   },
