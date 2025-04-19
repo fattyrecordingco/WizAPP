@@ -1,8 +1,8 @@
-import { CustomColor } from '@/types/customColor'
+import Modal from '@components/ui/Modal'
 import { useBulbStore } from '@renderer/context/BulbStore'
+import { CustomColor } from '@shared/types/customColor'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Modal from '../ui/Modal'
 
 type ModalCustomColorProps = {
   isOpen: boolean

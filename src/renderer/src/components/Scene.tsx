@@ -1,6 +1,6 @@
+import SceneItem from '@components/SceneItem'
 import { useTranslation } from 'react-i18next'
 import { scenes } from 'src/renderer/utils/scenesInfo'
-import SceneItem from './SceneItem'
 
 type Scene = {
   type?: string

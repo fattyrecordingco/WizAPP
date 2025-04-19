@@ -1,7 +1,7 @@
+import { MenuItemType, ModalType } from '@/types/modals'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuSquarePen, LuToggleLeft, LuTrash } from 'react-icons/lu'
-import { MenuItemType, ModalType } from '../types/modals'
 
 export function useBulbMenuItems(toggleBulb: () => void, toggleModal: (modal: ModalType) => void) {
   const { t } = useTranslation()

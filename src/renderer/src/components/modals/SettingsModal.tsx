@@ -1,6 +1,6 @@
+import Modal from '@components/ui/Modal'
+import Separator from '@components/ui/Separator'
 import { useTranslation } from 'react-i18next'
-import Modal from '../ui/Modal'
-import Separator from '../ui/Separator'
 
 type SettingsModalProps = {
   isOpen: boolean

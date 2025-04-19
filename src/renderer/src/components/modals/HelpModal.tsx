@@ -1,8 +1,8 @@
+import Modal from '@components/ui/Modal'
+import Separator from '@components/ui/Separator'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuDownload, LuFolder, LuGithub, LuLoaderCircle, LuUser } from 'react-icons/lu'
-import Modal from '../ui/Modal'
-import Separator from '../ui/Separator'
 
 type AboutModalProps = {
   isOpen: boolean

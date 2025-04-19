@@ -19,11 +19,11 @@ const router = createHashRouter([
   }
 ])
 
+import Layout from '@components/Layout'
+import Home from '@pages/Home'
+import Information from '@pages/Information'
+import Scenes from '@pages/Scenes'
 import { createHashRouter, RouterProvider } from 'react-router'
-import Layout from './components/Layout'
-import Home from './pages/Home'
-import Information from './pages/Information'
-import Scenes from './pages/Scenes'
 
 function App(): JSX.Element {
   return <RouterProvider router={router} />

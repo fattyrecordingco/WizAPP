@@ -1,7 +1,7 @@
-import { BulbState } from '@/types/bulbState'
-import Card from './ui/Card'
-import KebabMenu from './ui/KebabMenu'
-import PowerButton from './ui/PowerButton'
+import Card from '@components/ui/Card'
+import KebabMenu from '@components/ui/KebabMenu'
+import PowerButton from '@components/ui/PowerButton'
+import { BulbState } from '@shared/types/bulbState'
 
 type BulbCardProps = {
   bulb: BulbState

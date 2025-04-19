@@ -1,11 +1,11 @@
-import { CustomColor } from '@/types/customColor'
+import CustomSceneItem from '@components/CustomSceneItem'
+import CustomColorModal from '@components/modals/CustomColorModal'
+import DeleteDialog from '@components/modals/DeleteDialog'
 import { useBulbStore } from '@renderer/context/BulbStore'
+import { CustomColor } from '@shared/types/customColor'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuHeart, LuPlus, LuSquarePen, LuTrash } from 'react-icons/lu'
-import CustomSceneItem from './CustomSceneItem'
-import CustomColorModal from './modals/CustomColorModal'
-import DeleteDialog from './modals/DeleteDialog'
 
 type CustomSceneProps = {
   showBtnButton?: boolean

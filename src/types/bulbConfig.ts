@@ -1,5 +1,5 @@
-import { BulbState } from './bulbState'
-import { CustomColor } from './customColor'
+import { BulbState } from '@shared/types/bulbState'
+import { CustomColor } from '@shared/types/customColor'
 
 export interface BulbConfig {
   bulbName: string

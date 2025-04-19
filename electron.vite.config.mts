@@ -14,7 +14,7 @@ export default defineConfig({
         '@constants': resolve('src/main/constants/index.ts'),
         '@main': resolve('src/main'),
         '@i18n': resolve('src/i18n/index.ts'),
-        '@shared': resolve('src/shared'),
+        '@shared': resolve('src/shared')
       }
     },
     plugins: [externalizeDepsPlugin()]

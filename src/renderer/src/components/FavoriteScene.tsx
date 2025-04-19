@@ -1,7 +1,7 @@
+import SceneItem from '@components/SceneItem'
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { useTranslation } from 'react-i18next'
 import { scenes } from 'src/renderer/utils/scenesInfo'
-import SceneItem from './SceneItem'
 
 export default function FavoriteScene() {
   const bulb = useBulbStore((state) => state.bulb)

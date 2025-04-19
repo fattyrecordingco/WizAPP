@@ -1,6 +1,6 @@
+import Modal from '@components/ui/Modal'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Modal from '../ui/Modal'
 
 type EditNameModalProps = {
   isOpen: boolean

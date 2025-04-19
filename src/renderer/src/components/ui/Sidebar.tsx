@@ -1,15 +1,15 @@
 import logo from '@assets/logo_sidebar.png'
+import BulbShortcut from '@components/BulbShortcut'
+import MenuLink from '@components/MenuLink'
+import HelpModal from '@components/modals/HelpModal'
+import SettingsModal from '@components/modals/SettingsModal'
+import Button from '@components/ui/Button'
+import Separator from '@components/ui/Separator'
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { SidebarModalState } from '@renderer/types/modals'
 import { ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuCircleHelp, LuImages, LuInfo, LuLayoutDashboard, LuSettings } from 'react-icons/lu'
-import BulbShortcut from '../BulbShortcut'
-import MenuLink from '../MenuLink'
-import HelpModal from '../modals/HelpModal'
-import SettingsModal from '../modals/SettingsModal'
-import Button from './Button'
-import Separator from './Separator'
 
 export default function Sidebar() {
   const { t } = useTranslation()

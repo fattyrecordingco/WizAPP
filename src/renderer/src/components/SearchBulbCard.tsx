@@ -1,6 +1,6 @@
+import Card from '@components/ui/Card'
 import { useTranslation } from 'react-i18next'
 import { LuLoaderCircle } from 'react-icons/lu'
-import Card from './ui/Card'
 
 export default function SearchBulbCard() {
   const { t } = useTranslation()

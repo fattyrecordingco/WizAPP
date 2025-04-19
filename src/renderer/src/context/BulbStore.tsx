@@ -1,5 +1,5 @@
-import { BulbState } from '@/types/bulbState'
 import { MAX_DEFAULT_COLORS } from '@shared/constants'
+import { BulbState } from '@shared/types/bulbState'
 import log from 'electron-log/renderer'
 import { create } from 'zustand'
 

@@ -1,5 +1,5 @@
+import Modal from '@components/ui/Modal'
 import { useTranslation } from 'react-i18next'
-import Modal from '../ui/Modal'
 
 type DeleteDialogProps = {
   isOpen: boolean

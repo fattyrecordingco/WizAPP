@@ -1,5 +1,5 @@
+import KebabMenu from '@components/ui/KebabMenu'
 import { useBulbStore } from '@renderer/context/BulbStore'
-import KebabMenu from './ui/KebabMenu'
 
 type CustomSceneItemProps = {
   id: number

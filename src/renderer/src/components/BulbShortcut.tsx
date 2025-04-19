@@ -1,6 +1,6 @@
+import BrightnessSlider from '@components/ui/BrightnessSlider'
+import PowerButton from '@components/ui/PowerButton'
 import { useBulbStore } from '@renderer/context/BulbStore'
-import BrightnessSlider from './ui/BrightnessSlider'
-import PowerButton from './ui/PowerButton'
 
 export default function BulbShortcut() {
   const bulb = useBulbStore((state) => state.bulb)

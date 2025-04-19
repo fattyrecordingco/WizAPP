@@ -1,4 +1,4 @@
-import { BulbState } from './bulbState'
+import { BulbState } from '@shared/types/bulbState'
 
 export interface IElectronAPI {
   onUpdateBulb: (callback: (bulb: BulbState) => void) => void
