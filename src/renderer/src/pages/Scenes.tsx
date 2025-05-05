@@ -38,7 +38,7 @@ export default function Scenes() {
   const renderTagButton = (name: string) => (
     <button
       key={name}
-      className={`text-white text-sm lg:text-base px-3 py-1 rounded-full cursor-pointer  transition-colors ${selectedTag === name ? 'bg-primary hover:bg-primary-600' : 'bg-secondary hover:bg-secondary-600'}`}
+      className={`text-white text-sm lg:text-base px-3 py-1 rounded-lg cursor-pointer  transition-colors ${selectedTag === name ? 'bg-primary hover:bg-primary-600' : 'bg-secondary hover:bg-secondary-600'}`}
       onClick={() => handleChangeTag(name)}
     >
       {t(`scenes.tags.${name.toLowerCase()}`)}

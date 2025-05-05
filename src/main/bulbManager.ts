@@ -62,7 +62,12 @@ class BulbManager {
         bulbIp: '',
         bulbName: '',
         customColors: [],
-        favoriteColors: []
+        favoriteColors: [
+          SCENES['Warm White'],
+          SCENES['Daylight'],
+          SCENES['Night Light'],
+          SCENES['Cozy']
+        ]
       }
       log.warn('Config data not found, creating new config file...')
     }
@@ -125,10 +130,7 @@ class BulbManager {
       port: this.bulb.bulbPort,
       name: configData && configData.bulbName ? configData.bulbName : configResult.moduleName,
       customColors: configData && configData.customColors ? configData.customColors : [],
-      favoriteColors:
-        configData && configData.favoriteColors
-          ? configData.favoriteColors
-          : [SCENES['Warm White'], SCENES['Daylight'], SCENES['Night Light'], SCENES['Cozy']]
+      favoriteColors: configData && configData.favoriteColors ? configData.favoriteColors : []
     }
 
     this.appData = {
@@ -152,6 +154,10 @@ class BulbManager {
 
   private saveConfig() {
     fs.writeFileSync(CONFIG, JSON.stringify(this.appData))
+  }
+
+  private deleteConfig() {
+    fs.unlinkSync(CONFIG)
   }
 
   public async reconnectBulb() {
@@ -267,6 +273,27 @@ class BulbManager {
     this.appData.favoriteColors = this.bulbState.favoriteColors
 
     this.saveConfig()
+  }
+
+  @needsViewUpdate('delete bulb')
+  public deleteBulb() {
+    this.bulbState = null
+    this.bulb = null
+    this.window.webContents.send('on-update-bulb', this.bulbState)
+    log.info('Bulb deleted')
+    this.saveConfig()
+    this.init()
+  }
+
+  @needsViewUpdate('end connection')
+  public deleteProfile() {
+    this.bulbState = null
+    this.bulb = null
+    this.appData = null
+    this.window.webContents.send('on-update-bulb', this.bulbState)
+    log.info('Profile deleted')
+    this.deleteConfig()
+    this.init()
   }
 
   public endConnection() {

@@ -23,7 +23,9 @@ const api = {
   openAppFolder: () => ipcRenderer.send('open-app-folder'),
   getLanguage: () => ipcRenderer.invoke('get-language'),
   checkForUpdates: () => ipcRenderer.invoke('check-for-updates'),
-  getVersion: () => ipcRenderer.invoke('get-version')
+  getVersion: () => ipcRenderer.invoke('get-version'),
+  deleteBulb: () => ipcRenderer.send('delete-bulb'),
+  deleteProfile: () => ipcRenderer.send('delete-profile')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -18,7 +18,7 @@ export default function BulbCard({ bulb, menuItems }: BulbCardProps) {
       className="w-48 h-31 py-3 px-4 animate-fade-in animate-steps-modern"
       variant={bulb.state ? 'primary' : 'secondary'}
     >
-      <p className="text-lg">{bulb.name}</p>
+      <p className="text-lg overflow-hidden text-ellipsis whitespace-nowrap">{bulb.name}</p>
       <span className="text-neutral-300">{bulb.state ? 'on' : 'off'}</span>
 
       <div className="mt-4 flex justify-between items-center">

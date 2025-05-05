@@ -125,7 +125,8 @@
     },
     "deleteProfile": {
       "title": "Delete profile",
-      "button": "Delete"
+      "button": "Delete",
+      "description": "Are you sure you want to delete your profile? This will delete all your configuration, custom scenes and favorites."
     }
   },
   "help": {

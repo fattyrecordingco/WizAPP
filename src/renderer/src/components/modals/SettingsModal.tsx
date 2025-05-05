@@ -1,6 +1,9 @@
 import Modal from '@components/ui/Modal'
 import Separator from '@components/ui/Separator'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import DeleteDialog from '@renderer/components/modals/DeleteDialog'
+import { useBulbStore } from '@renderer/context/BulbStore'
 
 type SettingsModalProps = {
   isOpen: boolean
@@ -9,7 +12,9 @@ type SettingsModalProps = {
 
 export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const { t, i18n } = useTranslation()
+  const { deleteProfile } = useBulbStore()
 
+  const [deleteDialog, setDeleteDialog] = useState(false)
   const handleChangeLanguage = (lang: string) => {
     if (lang === 'auto') {
       const systemLanguage = navigator.language || 'en'
@@ -17,6 +22,12 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     } else {
       i18n.changeLanguage(lang)
     }
+  }
+
+  const handleDeleteProfile = async () => {
+    setDeleteDialog(false)
+    await deleteProfile()
+    onClose()
   }
 
   return (
@@ -49,11 +60,24 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
         <div className="flex items-center justify-between">
           <p>{t('settings.deleteProfile.title')}</p>
-          <button className="text-white bg-alert font-medium rounded-lg px-8 py-2 cursor-pointer hover:bg-alert/80">
+          <button
+            className="text-white bg-alert font-medium rounded-lg px-8 py-2 cursor-pointer hover:bg-alert/80"
+            onClick={() => setDeleteDialog(true)}
+          >
             {t('settings.deleteProfile.button')}
           </button>
         </div>
       </article>
+
+      {deleteDialog && (
+        <DeleteDialog
+          isOpen={deleteDialog}
+          onClose={() => setDeleteDialog(false)}
+          title={t('settings.deleteProfile.title')}
+          description={t('settings.deleteProfile.description')}
+          onConfirm={handleDeleteProfile}
+        />
+      )}
     </Modal>
   )
 }

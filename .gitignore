@@ -95,5 +95,6 @@ dist
 # Others
 testing/
 .vscode
+.cursor
 .env
 out/

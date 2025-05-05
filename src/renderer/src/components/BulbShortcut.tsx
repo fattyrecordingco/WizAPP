@@ -8,7 +8,7 @@ export default function BulbShortcut() {
   return (
     <div className="text-white px-4 py-2 bg-secondary rounded-xl animate-steps-modern animate-pulse-fade-in">
       <div className="flex justify-between items-center">
-        <p>{bulb.name}</p>
+        <p className="overflow-hidden text-ellipsis whitespace-nowrap">{bulb.name}</p>
         <PowerButton />
       </div>
       <BrightnessSlider />

@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { LuCirclePlus } from 'react-icons/lu'
 
 export default function Home() {
-  const { bulb, toggleBulb } = useBulbStore()
+  const { bulb, toggleBulb, deleteBulb } = useBulbStore()
   const { t } = useTranslation()
   const [modals, setModals] = useState<HomeModalState>({
     edit: false,
@@ -23,6 +23,11 @@ export default function Home() {
 
   const toggleModal = (modal: ModalType) => {
     setModals((prev) => ({ ...prev, [modal]: !prev[modal] }))
+  }
+
+  const handleDeleteBulb = () => {
+    deleteBulb()
+    toggleModal('delete')
   }
 
   const menuItems = useBulbMenuItems(toggleBulb, toggleModal)
@@ -52,7 +57,7 @@ export default function Home() {
             onClose={() => toggleModal('delete')}
             title={t('home.delete.title')}
             description={`${t('home.delete.message')} "${bulb.name}"?`}
-            onConfirm={() => alert('WIP')}
+            onConfirm={handleDeleteBulb}
           />
         </>
       )}

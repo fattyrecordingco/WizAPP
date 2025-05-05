@@ -14,4 +14,6 @@ export interface IElectronAPI {
   editCustomColor: (colorId: number, colorName: string, colorHex: string) => void
   removeCustomColor: (colorId: number) => void
   getVersion: () => Promise<string>
+  deleteBulb: () => void
+  deleteProfile: () => void
 }

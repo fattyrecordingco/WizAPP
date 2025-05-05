@@ -127,7 +127,8 @@
     },
     "deleteProfile": {
       "title": "Eliminar perfil",
-      "button": "Eliminar"
+      "button": "Eliminar",
+      "description": "¿Estás seguro de que deseas eliminar tu perfil? Esto eliminará todos los datos de tu configuración, escenas personalizadas y favoritos."
     }
   },
   "help": {

@@ -68,6 +68,14 @@ const registerIPCEvents = (BulbManager: BulbManager) => {
       : false
   })
 
+  ipcMain.on('delete-bulb', () => {
+    BulbManager.deleteBulb()
+  })
+
+  ipcMain.on('delete-profile', () => {
+    BulbManager.deleteProfile()
+  })
+
   ipcMain.handle('get-language', () => {
     return i18n.language
   })
