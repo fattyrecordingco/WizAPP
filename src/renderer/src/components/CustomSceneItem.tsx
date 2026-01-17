@@ -1,5 +1,6 @@
 import KebabMenu from '@components/ui/KebabMenu'
 import { useBulbStore } from '@renderer/context/BulbStore'
+import { ReactNode } from 'react'
 
 type CustomSceneItemProps = {
   id: number
@@ -7,7 +8,7 @@ type CustomSceneItemProps = {
   color: string
   kebabMenuOptions: Array<{
     label: string
-    icon?: JSX.Element
+    icon?: ReactNode
     onClick: () => void
   }>
 }

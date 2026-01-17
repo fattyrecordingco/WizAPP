@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { LuEllipsisVertical } from 'react-icons/lu'
 
 type KebabMenuProps = {
   items: {
     label: string
-    icon?: JSX.Element
+    icon?: ReactNode
     onClick: () => void
   }[]
 }

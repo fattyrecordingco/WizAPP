@@ -2,11 +2,12 @@ import Card from '@components/ui/Card'
 import KebabMenu from '@components/ui/KebabMenu'
 import PowerButton from '@components/ui/PowerButton'
 import { BulbState } from '@shared/types/bulbState'
+import { ReactNode } from 'react'
 
 type BulbCardProps = {
   bulb: BulbState
   menuItems: {
-    icon: JSX.Element
+    icon: ReactNode
     label: string
     onClick: () => void
   }[]

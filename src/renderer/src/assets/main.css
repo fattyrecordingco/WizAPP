@@ -41,7 +41,7 @@
   --color-success: #22C55E;
 }
 
-@plugin "@midudev/tailwind-animations";
+@import "tailwind-animations";
 
 body {
   font-family: 'Inter Variable', sans-serif;
@@ -75,7 +75,8 @@ input[type='range']::-moz-range-track {
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  margin-top: -6px; /* Centers the thumb on the track */
+  margin-top: -6px;
+  /* Centers the thumb on the track */
   background-color: white;
   height: 16px;
   width: 16px;

@@ -1,8 +1,10 @@
+import { ReactNode } from 'react'
+
 export type ModalType = 'edit' | 'delete' | 'ip'
 
 export interface MenuItemType {
   label: string
-  icon: JSX.Element
+  icon: ReactNode
   onClick: () => void
 }
 
