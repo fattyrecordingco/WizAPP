@@ -16,6 +16,7 @@ interface BulbStore {
   editCustomColor: (colorId: number, colorName: string, colorHex: string) => Promise<void>
   removeCustomColor: (colorId: number) => Promise<void>
   toggleFavoriteColor: (colorId: number) => Promise<void>
+  setFavoriteColorsOrder: (favoriteColors: number[]) => Promise<void>
   deleteBulb: () => Promise<void>
   deleteProfile: () => Promise<void>
 }
@@ -79,6 +80,10 @@ export const useBulbStore = create<BulbStore>((set) => ({
   toggleFavoriteColor: async (colorId: number) => {
     log.debug('[RENDERER] Toggling favorite color')
     await window.api.toggleFavoriteColor(colorId)
+  },
+  setFavoriteColorsOrder: async (favoriteColors: number[]) => {
+    log.debug('[RENDERER] Setting favorite colors order')
+    await window.api.setFavoriteColorsOrder(favoriteColors)
   },
   deleteBulb: async () => {
     log.debug('[RENDERER] Deleting bulb')

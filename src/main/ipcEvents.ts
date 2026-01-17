@@ -44,6 +44,10 @@ const registerIPCEvents = (BulbManager: BulbManager) => {
     await BulbManager.toggleFavoriteColor(colorId)
   })
 
+  ipcMain.on('set-favorite-colors-order', async (_, favoriteColors) => {
+    await BulbManager.setFavoriteColorsOrder(favoriteColors)
+  })
+
   ipcMain.on('open-app-folder', () => {
     shell.openPath(app.getPath('userData'))
   })

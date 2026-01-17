@@ -77,75 +77,109 @@ class BulbManager {
   private async searchBulb(): Promise<Bulb> {
     let isBulbFound = false
     let bulb: Bulb | null = null
+    let retryCount = 0
+    const MAX_RETRIES = 20
+    const RETRY_DELAY_MS = 3000
 
-    while (!isBulbFound) {
+    while (!isBulbFound && retryCount < MAX_RETRIES) {
       log.info('Looking for bulb')
+      // Try with specific IP first if available
       if (this.bulbIP) {
         log.info('Trying to connect to bulb with IP: ', this.bulbIP)
-        const res = await discover({ addr: this.bulbIP, waitMs: DISCOVER_TIMEOUT })
+        try {
+          const res = await discover({ addr: this.bulbIP, waitMs: DISCOVER_TIMEOUT })
 
-        if (res.length > 0) {
-          bulb = res[0]
-          isBulbFound = true
-        } else {
-          log.error('Bulb not found with IP: ', this.bulbIP)
+          if (res.length > 0) {
+            bulb = res[0]
+            isBulbFound = true
+            log.info('Bulb found with IP: ', this.bulbIP)
+          } else {
+            log.warn('Bulb not found with IP: ', this.bulbIP, ' - Will try network discovery')
+            this.bulbIP = null
+          }
+        } catch (error) {
+          log.error('Error discovering bulb with IP: ', error)
           this.bulbIP = null
         }
       }
 
+      // If not found with IP, try network discovery
       if (!isBulbFound) {
-        const res = await discover({ waitMs: DISCOVER_TIMEOUT })
-        if (res.length > 0) {
-          bulb = res[0]
-          isBulbFound = true
-        } else {
-          log.error('Bulb not found')
+        try {
+          const res = await discover({ waitMs: DISCOVER_TIMEOUT })
+          if (res.length > 0) {
+            bulb = res[0]
+            isBulbFound = true
+            log.info('Bulb found via network discovery')
+          } else {
+            log.error('Bulb not found')
+          }
+        } catch (error) {
+          log.error('Error during network discovery: ', error)
         }
       }
 
-      log.info('Retrying to find bulb')
+      // Only retry if bulb wasn't found
+      if (!isBulbFound) {
+        retryCount++
+        if (retryCount < MAX_RETRIES) {
+          log.info(`Retrying to find bulb (${retryCount}/${MAX_RETRIES})`)
+          await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS))
+        } else {
+          log.error('Max retries reached. Could not find bulb.')
+          throw new Error('Bulb not found after maximum retries')
+        }
+      }
     }
 
     return bulb as Bulb
   }
 
   private async setUpBulb() {
-    const configData = this.getConfigData()
-    this.bulbIP = configData.bulbIp
-    this.bulb = await this.searchBulb()
+    try {
+      const configData = this.getConfigData()
+      this.bulbIP = configData.bulbIp
+      this.bulb = await this.searchBulb()
 
-    log.debug('Getting bulb state...')
-    const pilot = (await this.bulb.getPilot()).result
-    const bulbConfig = (await this.bulb.sendRaw({
-      method: 'getSystemConfig',
-      env: '',
-      params: { mac: '', rssi: 0 }
-    })) as systemConfig
+      log.debug('Getting bulb state...')
+      const pilot = (await this.bulb.getPilot()).result
+      const bulbConfig = (await this.bulb.sendRaw({
+        method: 'getSystemConfig',
+        env: '',
+        params: { mac: '', rssi: 0 }
+      })) as systemConfig
 
-    const configResult = bulbConfig.result
-    this.bulbState = {
-      ...pilot,
-      ...configResult,
-      ip: this.bulb.address,
-      port: this.bulb.bulbPort,
-      name: configData && configData.bulbName ? configData.bulbName : configResult.moduleName,
-      customColors: configData && configData.customColors ? configData.customColors : [],
-      favoriteColors: configData && configData.favoriteColors ? configData.favoriteColors : []
+      const configResult = bulbConfig.result
+      this.bulbState = {
+        ...pilot,
+        ...configResult,
+        ip: this.bulb.address,
+        port: this.bulb.bulbPort,
+        name: configData && configData.bulbName ? configData.bulbName : configResult.moduleName,
+        customColors: configData && configData.customColors ? configData.customColors : [],
+        favoriteColors: configData && configData.favoriteColors ? configData.favoriteColors : []
+      }
+
+      this.appData = {
+        bulbIp: this.bulbState.ip,
+        bulbName: this.bulbState.name,
+        customColors: this.bulbState.customColors,
+        favoriteColors: this.bulbState.favoriteColors
+      }
+      this.saveConfig()
+
+      log.debug(this.window ? 'Current window is OK' : 'Current windows is NOT DEFINED')
+      log.debug(this.bulbState ? 'Bulb state is OK' : 'Bulb state is NOT DEFINED')
+
+      this.window.webContents.send('on-update-bulb', this.bulbState)
+      log.info('Sending bulb data to renderer process...')
+    } catch (error) {
+      log.error('Failed to setup bulb: ', error)
+      this.bulbState = null
+      this.bulb = null
+      this.window.webContents.send('on-update-bulb', this.bulbState)
+      throw error
     }
-
-    this.appData = {
-      bulbIp: this.bulbState.ip,
-      bulbName: this.bulbState.name,
-      customColors: this.bulbState.customColors,
-      favoriteColors: this.bulbState.favoriteColors
-    }
-    this.saveConfig()
-
-    log.debug(this.window ? 'Current window is OK' : 'Current windows is NOT DEFINED')
-    log.debug(this.bulbState ? 'Bulb state is OK' : 'Bulb state is NOT DEFINED')
-
-    this.window.webContents.send('on-update-bulb', this.bulbState)
-    log.info('Sending bulb data to renderer process...')
   }
 
   public async getBulbState() {
@@ -161,11 +195,26 @@ class BulbManager {
   }
 
   public async reconnectBulb() {
+    // Close existing connection before reconnecting
+    if (this.bulb) {
+      try {
+        this.bulb.closeConnection()
+        log.info('Closed previous bulb connection')
+      } catch (error) {
+        log.warn('Error closing previous connection: ', error)
+      }
+    }
+
     this.bulbState = null
     this.bulb = null
     this.window.webContents.send('on-update-bulb', this.bulbState)
     log.info('Reconnecting to bulb...')
-    await this.setUpBulb()
+
+    try {
+      await this.setUpBulb()
+    } catch (error) {
+      log.error('Failed to reconnect to bulb: ', error)
+    }
   }
 
   @needsViewUpdate('toggle bulb')
@@ -283,6 +332,16 @@ class BulbManager {
     log.info('Bulb deleted')
     this.saveConfig()
     this.init()
+  }
+
+  @needsViewUpdate('set favorite colors order')
+  public async setFavoriteColorsOrder(favoriteColors: number[]) {
+    if (!this.bulbState || !this.appData) return
+
+    log.info('Setting favorite colors order: ', favoriteColors)
+    this.bulbState.favoriteColors = favoriteColors
+    this.appData.favoriteColors = favoriteColors
+    this.saveConfig()
   }
 
   @needsViewUpdate('end connection')

@@ -4,7 +4,7 @@ import { LuHeart } from 'react-icons/lu'
 type SceneItemProps = {
   id: number
   name: string
-  icon: React.ReactNode
+  icon: React.ElementType
 }
 
 export default function SceneItem({ id, name, icon }: SceneItemProps) {
@@ -24,6 +24,7 @@ export default function SceneItem({ id, name, icon }: SceneItemProps) {
   }
 
   const isFavorite = bulb ? bulb.favoriteColors.includes(id) : false
+  const Icon = icon
 
   return (
     <button
@@ -32,7 +33,7 @@ export default function SceneItem({ id, name, icon }: SceneItemProps) {
       disabled={!bulb}
     >
       <div className="flex items-center">
-        {icon}
+        <Icon size={24} />
         <span className="text-white ms-2 font-medium text-sm lg:text-base">{name}</span>
       </div>
       <button

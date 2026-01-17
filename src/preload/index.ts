@@ -20,6 +20,8 @@ const api = {
   editCustomColor: (colorId: number, colorName: string, colorHex: string) =>
     ipcRenderer.send('edit-color', colorId, colorName, colorHex),
   removeCustomColor: (colorId: number) => ipcRenderer.send('remove-color', colorId),
+  setFavoriteColorsOrder: (favoriteColors: number[]) =>
+    ipcRenderer.send('set-favorite-colors-order', favoriteColors),
   openAppFolder: () => ipcRenderer.send('open-app-folder'),
   getLanguage: () => ipcRenderer.invoke('get-language'),
   checkForUpdates: () => ipcRenderer.invoke('check-for-updates'),

@@ -18,6 +18,8 @@ function createWindow() {
     minWidth: MIN_WIDTH,
     minHeight: MIN_HEIGHT,
     icon: ICON,
+    show: false,
+    backgroundColor: '#1e1e1e',
     title: 'WiZ APP',
     autoHideMenuBar: HIDE_MENU,
     ...(process.platform === 'linux' ? { icon: ICON } : {}),
@@ -29,7 +31,10 @@ function createWindow() {
   })
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+    // Timeout to avoid blank flash
+    setTimeout(() => {
+      mainWindow.show()
+    }, 500)
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {

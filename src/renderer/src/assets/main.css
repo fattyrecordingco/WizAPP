@@ -27,9 +27,18 @@
   --color-secondary-900: #1a1a1a;
   --color-secondary-950: #000000;
 
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+
+  --color-accent-primary: #FD52A5;
+  --color-accent-secondary: #52FDBA;
+
   --color-sidebar-bg: #2d2d2e;
   --color-main-bg: #1e1e1e;
+
   --color-alert: #e51e31;
+  --color-warning: #FACC15;
+  --color-success: #22C55E;
 }
 
 @plugin "@midudev/tailwind-animations";

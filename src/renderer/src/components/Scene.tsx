@@ -22,7 +22,6 @@ export default function Scene({ type, nameFilter, onFilter }: Scene) {
   const filteredScenes = scenes.filter(filterByType).filter(filterByName)
 
   const areScenesEmpty = filteredScenes.length === 0
-  console.log(filteredScenes, areScenesEmpty)
 
   if (areScenesEmpty) {
     onFilter(false)
