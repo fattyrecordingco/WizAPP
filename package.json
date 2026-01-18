@@ -73,7 +73,8 @@
       "esbuild"
     ],
     "onlyBuiltDependencies": [
-      "electron"
+      "electron",
+      "electron-winstaller"
     ]
   }
 }

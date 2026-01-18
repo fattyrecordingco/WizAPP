@@ -46,8 +46,8 @@ If you want to build the app yourself, you can do it by following these steps:
 
 - Clone the repo.
 - Install the dependencies with `npm install`.
-- Run `npm run make` to build the app.
-- The app will be in the `out` folder.
+- Run `npm run build:win` to build the app for Windows (or `npm run build:mac` / `npm run build:linux`).
+- The executable will be in the `dist` folder.
 
 ## Troubleshooting 🔨
 
@@ -56,21 +56,19 @@ If you want to build the app yourself, you can do it by following these steps:
 
 ## Roadmap 🚀
 
-- [x] Refactor main process
 - [/] Add support for more bulb models
-- [x] Remade the UI using tailwindcss
-  - [ ] Light/Dark mode
-- [x] Switch to electron builder
-  - [x] Use inbuilt auto updater
+- [ ] Light/Dark mode
 - [ ] Custom bulb temperature scene
 - [ ] Reduce bundle size
 
 ## Stack 🛠️
 
 - [![ElectronJS](https://img.shields.io/badge/Electron-2B2E3A?style=for-the-badge&logo=electron&logoColor=9FEAF9)](https://www.electronjs.org/) - Desktop Framework used.
-- [![ReactJS](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/) - Frontend Library used.
+- [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/) - Frontend Tooling used.
+- [![ReactJS](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/) - Frontend Library used.
 - [![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) - Language used.
-- [![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/) - CSS Framework used.
+- [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/) - CSS Framework used.
+- [![Zustand](https://img.shields.io/badge/Zustand-443E38?style=for-the-badge&logo=react&logoColor=white)](https://zustand.docs.pmnd.rs/getting-started/introduction) - State Management used.
 - [![I18next](https://img.shields.io/badge/I18next-0D2B3E?style=for-the-badge&logo=i18next&logoColor=white)](https://www.i18next.com/) - Internationalization library used.
 
 ## Responsibilities 📖
