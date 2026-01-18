@@ -29,7 +29,7 @@ export default function CustomSceneItem({
   const active = id === bulb.sceneId
 
   return (
-    <button
+    <div
       className={`flex items-center justify-between cursor-pointer ${active ? 'bg-primary hover:bg-primary-600' : 'bg-secondary hover:bg-secondary-600'} text-white rounded-2xl px-4 py-6 2xl:px-6 text-nowrap transition-colors`}
       onClick={handleSetCustomColor}
     >
@@ -37,7 +37,9 @@ export default function CustomSceneItem({
         <span className="h-6 w-6 rounded-full" style={{ backgroundColor: color }} />
         <span className="text-white ms-2 font-medium text-sm lg:text-base">{name}</span>
       </div>
-      <KebabMenu items={kebabMenuOptions} />
-    </button>
+      <div onClick={(e) => e.stopPropagation()}>
+        <KebabMenu items={kebabMenuOptions} />
+      </div>
+    </div>
   )
 }

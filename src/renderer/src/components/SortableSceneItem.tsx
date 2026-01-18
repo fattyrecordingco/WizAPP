@@ -1,8 +1,8 @@
 import { useSortable } from '@dnd-kit/sortable'
-import { useBulbStore } from '@renderer/context/BulbStore'
-import { LuGripVertical, LuHeart } from 'react-icons/lu'
 import { CSS } from '@dnd-kit/utilities'
+import { useBulbStore } from '@renderer/context/BulbStore'
 import { IconType } from 'react-icons'
+import { LuGripVertical, LuHeart } from 'react-icons/lu'
 
 type SortableSceneItemProps = {
   id: number
@@ -24,6 +24,7 @@ export default function SortableSceneItem({ id, name, icon, hex }: SortableScene
   const active = bulb ? bulb.sceneId === id : false
 
   const handleClick = () => {
+    if (!bulb) return
     setScene(id)
   }
 
@@ -44,17 +45,19 @@ export default function SortableSceneItem({ id, name, icon, hex }: SortableScene
       ref={setNodeRef}
       {...attributes}
       style={style}
-      className={`flex items-center  cursor-pointer ${active ? 'bg-primary hover:bg-primary-600' : 'bg-secondary hover:bg-secondary-600'} text-white rounded-2xl pr-4 py-6  text-nowrap transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
+      onClick={handleClick}
+      className={`flex items-center ${active ? 'bg-primary hover:bg-primary-600' : 'bg-secondary hover:bg-secondary-600'} text-white rounded-2xl pr-4 py-6 text-nowrap transition-colors ${!bulb ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
     >
-      <div {...listeners} className="cursor-grab px-2 text-neutral-300">
-        <LuGripVertical size={20} />
+      <div className="px-2 text-neutral-300 relative">
+        <div 
+          {...listeners} 
+          onClick={(e) => e.stopPropagation()} 
+          className="cursor-grab absolute inset-0 -inset-y-5"
+        />
+        <LuGripVertical size={20} className="relative pointer-events-none" />
       </div>
 
-      <button
-        onClick={handleClick}
-        disabled={!bulb}
-        className="flex items-center cursor-pointer justify-between w-full"
-      >
+      <div className="flex items-center justify-between w-full">
         <div className="flex items-center">
           {icon ? (
             <Icon className="w-5 h-5 lg:w-6 lg:h-6" />
@@ -72,7 +75,7 @@ export default function SortableSceneItem({ id, name, icon, hex }: SortableScene
         >
           <LuHeart className="w-5 h-5" fill={isFavorite ? 'currentColor' : 'none'} />
         </button>
-      </button>
+      </div>
     </div>
   )
 }

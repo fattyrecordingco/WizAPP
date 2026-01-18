@@ -3,7 +3,7 @@ import CustomColorModal from '@components/modals/CustomColorModal'
 import DeleteDialog from '@components/modals/DeleteDialog'
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { CustomColor } from '@shared/types/customColor'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuHeart, LuPlus, LuSquarePen, LuTrash } from 'react-icons/lu'
 
@@ -99,14 +99,18 @@ export default function CustomScene({
     !isFilteringByName || color.name.toLowerCase().includes(nameFilter!.toLowerCase())
 
   const customScenes = bulb.customColors.filter(filterByName)
-
   const areScenesEmpty = customScenes.length === 0
 
+  useEffect(() => {
+    if (areScenesEmpty && showBtnButton) {
+      onFilter(false)
+    } else {
+      onFilter(true)
+    }
+  }, [areScenesEmpty, showBtnButton, onFilter])
+
   if (areScenesEmpty && showBtnButton) {
-    onFilter(false)
     return null
-  } else {
-    onFilter(true)
   }
 
   const getMenuOptions = (scene: CustomColor) => [

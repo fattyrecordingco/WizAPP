@@ -15,6 +15,7 @@ export default function SceneItem({ id, name, icon }: SceneItemProps) {
   const active = bulb ? bulb.sceneId === id : false
 
   const handleClick = () => {
+    if (!bulb) return
     setScene(id)
   }
 
@@ -27,10 +28,9 @@ export default function SceneItem({ id, name, icon }: SceneItemProps) {
   const Icon = icon
 
   return (
-    <button
-      className={`flex items-center justify-between cursor-pointer ${active ? 'bg-primary hover:bg-primary-600' : 'bg-secondary hover:bg-secondary-600'} text-white rounded-2xl px-4 py-6 2xl:px-6 text-nowrap transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
+    <div
+      className={`flex items-center justify-between cursor-pointer ${active ? 'bg-primary hover:bg-primary-600' : 'bg-secondary hover:bg-secondary-600'} text-white rounded-2xl px-4 py-6 2xl:px-6 text-nowrap transition-colors ${!bulb ? 'opacity-50 cursor-not-allowed' : ''}`}
       onClick={handleClick}
-      disabled={!bulb}
     >
       <div className="flex items-center">
         <Icon size={24} />
@@ -43,6 +43,6 @@ export default function SceneItem({ id, name, icon }: SceneItemProps) {
       >
         <LuHeart size={20} fill={isFavorite ? 'currentColor' : 'none'} />
       </button>
-    </button>
+    </div>
   )
 }
