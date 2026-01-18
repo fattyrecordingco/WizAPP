@@ -49,9 +49,10 @@ export default function Sidebar() {
           {t('sidebar.menu')}
         </p>
         <ul className="text-white flex flex-col gap-2">
-          <MenuLink label={t('sidebar.home')} to="/" icon={<LuLayoutDashboard size={20} />} />
-          <MenuLink label={t('sidebar.scenes')} to="/scenes" icon={<LuImages size={20} />} />
+          <MenuLink index={0} label={t('sidebar.home')} to="/" icon={<LuLayoutDashboard size={20} />} />
+          <MenuLink index={1} label={t('sidebar.scenes')} to="/scenes" icon={<LuImages size={20} />} />
           <MenuLink
+            index={2}
             label={t('sidebar.information')}
             to="/information"
             icon={<LuInfo size={20} />}

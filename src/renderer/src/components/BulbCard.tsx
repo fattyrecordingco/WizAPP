@@ -16,7 +16,7 @@ type BulbCardProps = {
 export default function BulbCard({ bulb, menuItems }: BulbCardProps) {
   return (
     <Card
-      className="w-48 h-31 py-3 px-4 animate-fade-in animate-steps-modern"
+      className="w-48 h-31 py-3 px-4"
       variant={bulb.state ? 'primary' : 'secondary'}
     >
       <p className="text-lg overflow-hidden text-ellipsis whitespace-nowrap">{bulb.name}</p>

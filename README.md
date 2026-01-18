@@ -57,8 +57,8 @@ If you want to build the app yourself, you can do it by following these steps:
 ## Roadmap 🚀
 
 - [x] Refactor main process
-- [ ] Add support for more bulb models
-- [ ] Remade the UI using tailwindcss
+- [/] Add support for more bulb models
+- [x] Remade the UI using tailwindcss
   - [ ] Light/Dark mode
 - [x] Switch to electron builder
   - [x] Use inbuilt auto updater

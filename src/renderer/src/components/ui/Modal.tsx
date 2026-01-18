@@ -44,7 +44,7 @@ const Modal = ({
 
       {/* Modal */}
       <div
-        className={`relative z-50 ${maxWidth} w-full bg-secondary-800 text-white rounded-xl shadow-xl animate-steps-modern animate-fade-in-down animate-duration-fast px-2 py-1`}
+        className={`relative z-50 ${maxWidth} w-full bg-secondary-800 text-white rounded-xl shadow-xl animate-fade-in-down animate-duration-300 px-2 py-1`}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4">
