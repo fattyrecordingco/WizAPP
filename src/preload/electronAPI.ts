@@ -32,4 +32,5 @@ export interface IElectronAPI {
   getLanguage: () => Promise<string>
   checkForUpdates: () => Promise<boolean>
   getVersion: () => Promise<string>
+  showWindow: () => void
 }

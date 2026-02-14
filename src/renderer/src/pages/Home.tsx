@@ -7,12 +7,12 @@ import SearchBulbCard from '@renderer/components/SearchBulbCard'
 import Button from '@renderer/components/ui/Button'
 import { useBulbStore } from '@renderer/context/BulbStore'
 import { HomeModalState, ModalType } from '@renderer/types/modals'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LuCirclePlus, LuSquarePen, LuToggleLeft, LuTrash } from 'react-icons/lu'
 
 export default function Home() {
-  const { bulbs, activeBulb, isDiscovering, toggleBulbByIp, setActiveBulb, deleteBulb } =
+  const { bulbs, activeBulb, isDiscovering, toggleBulbByIp, setActiveBulb, deleteBulb, isReady } =
     useBulbStore()
   const { t } = useTranslation()
   const [modals, setModals] = useState<HomeModalState>({
@@ -20,6 +20,16 @@ export default function Home() {
     delete: false,
     ip: false
   })
+
+  useEffect(() => {
+    if (isReady) {
+      document.fonts.ready.then(() => {
+        requestAnimationFrame(() => {
+          window.api.showWindow()
+        })
+      })
+    }
+  }, [isReady])
 
   // Track which bulb IP the kebab menu is targeting
   const [targetBulbIp, setTargetBulbIp] = useState<string | null>(null)

@@ -11,6 +11,7 @@ interface BulbStore {
   activeBulb: BulbState | null
   isDiscovering: boolean
   discoveryFailed: boolean
+  isReady: boolean
 
   // Toast state
   toasts: ToastMessage[]
@@ -46,6 +47,8 @@ export const useBulbStore = create<BulbStore>((set) => ({
   activeBulb: null,
   isDiscovering: true,
   discoveryFailed: false,
+  isReady: false,
+
   toasts: [],
 
   updateMultiBulbState: (state: MultiBulbState) =>
@@ -162,4 +165,5 @@ window.api.onShowToast((toast: ToastMessage) => {
 // Initial state
 window.api.getBulbsWhenReady().then((state: MultiBulbState) => {
   useBulbStore.getState().updateMultiBulbState(state)
+  useBulbStore.setState({ isReady: true })
 })
