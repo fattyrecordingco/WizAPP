@@ -13,7 +13,7 @@ import { LuCircleHelp, LuImages, LuInfo, LuLayoutDashboard, LuSettings } from 'r
 
 export default function Sidebar() {
   const { t } = useTranslation()
-  const bulb = useBulbStore((state) => state.bulb)
+  const bulb = useBulbStore((state) => state.activeBulb)
   const [modals, setModals] = useState<SidebarModalState>({
     about: false,
     settings: false
@@ -49,8 +49,18 @@ export default function Sidebar() {
           {t('sidebar.menu')}
         </p>
         <ul className="text-white flex flex-col gap-2">
-          <MenuLink index={0} label={t('sidebar.home')} to="/" icon={<LuLayoutDashboard size={20} />} />
-          <MenuLink index={1} label={t('sidebar.scenes')} to="/scenes" icon={<LuImages size={20} />} />
+          <MenuLink
+            index={0}
+            label={t('sidebar.home')}
+            to="/"
+            icon={<LuLayoutDashboard size={20} />}
+          />
+          <MenuLink
+            index={1}
+            label={t('sidebar.scenes')}
+            to="/scenes"
+            icon={<LuImages size={20} />}
+          />
           <MenuLink
             index={2}
             label={t('sidebar.information')}

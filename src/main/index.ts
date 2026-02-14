@@ -6,7 +6,7 @@ import registerIPCEvents from '@main/ipcEvents'
 import initializeLanguage from '@main/localization'
 import initializeLogger from '@main/logger'
 import createTray from '@main/tray'
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, Menu, shell } from 'electron'
 import log from 'electron-log'
 import { join } from 'path'
 
@@ -90,6 +90,9 @@ if (!gotTheLock) {
     initializeLanguage(app)
 
     const mainWindow = createWindow()
+
+    // Disable menu completely (prevents showing menu when Alt or Ctrl is pressed)
+    Menu.setApplicationMenu(null)
 
     const bulbHelper = new BulbManager(mainWindow)
     registerIPCEvents(bulbHelper)

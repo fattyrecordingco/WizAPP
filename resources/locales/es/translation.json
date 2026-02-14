@@ -9,6 +9,7 @@
       "example": "ej. 192.168.1.34"
     },
     "toggle": "Alternar",
+    "selectedBulb": "Foco seleccionado",
     "edit": {
       "entry": "Editar nombre",
       "title": "Editar nombre de la bombilla",
@@ -168,5 +169,12 @@
     "show": "Mostrar",
     "quit": "Salir",
     "toggle": "Alternar bombilla"
+  },
+  "toast": {
+    "discoveryFailed": "No se encontraron focos en la red",
+    "retry": "Reintentar",
+    "addSuccess": "Foco agregado correctamente",
+    "addFailed": "No se pudo conectar al foco",
+    "addDuplicate": "Este foco ya está agregado"
   }
 }

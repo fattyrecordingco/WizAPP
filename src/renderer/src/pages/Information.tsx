@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { LuLightbulb } from 'react-icons/lu'
 
 export default function Information() {
-  const bulb = useBulbStore((state) => state.bulb)
+  const bulb = useBulbStore((state) => state.activeBulb)
   const { t } = useTranslation()
 
   const renderLabel = (name: string, value: string | number) => (
@@ -44,7 +44,9 @@ export default function Information() {
         renderCardInfo()
       ) : (
         <div className="flex flex-col gap-4 mt-14 rounded-xl py-5 w-fit text-neutral-400">
-          <p>{t('information.missing')}</p>
+          <p className="my-12 text-center text-neutral-500 font-bold text-sm">
+            {t('information.missing')}
+          </p>
         </div>
       )}
     </section>

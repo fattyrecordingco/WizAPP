@@ -19,7 +19,7 @@ export default function CustomScene({
   onFilter
 }: CustomSceneProps) {
   const { t } = useTranslation()
-  const bulb = useBulbStore((state) => state.bulb)
+  const bulb = useBulbStore((state) => state.activeBulb)
   const removeCustomColor = useBulbStore((state) => state.removeCustomColor)
   const toggleFavoriteColor = useBulbStore((state) => state.toggleFavoriteColor)
 
