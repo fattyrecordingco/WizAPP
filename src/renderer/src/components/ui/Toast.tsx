@@ -2,7 +2,7 @@ import { useBulbStore } from '@renderer/context/BulbStore'
 import { ToastMessage } from '@shared/types/toastMessage'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LuX } from 'react-icons/lu'
+import { LuCircleAlert, LuCircleCheck, LuInfo, LuX } from 'react-icons/lu'
 
 const AUTO_DISMISS_MS = 5000
 
@@ -25,47 +25,64 @@ function Toast({ toast }: { toast: ToastMessage }) {
     setTimeout(() => dismissToast(toast.id), 300) // Wait for exit animation
   }
 
-  const bgColor = {
-    success: 'bg-green-600/80',
-    error: 'bg-red-500/80',
-    info: 'bg-blue-600/80'
-  }[toast.type]
-
-  const iconEmoji = {
-    success: '✓',
-    error: '!',
-    info: 'ℹ'
+  const styles = {
+    success: {
+      icon: <LuCircleCheck className="h-5 w-5" />,
+      sidebar: 'bg-green-500',
+      iconColor: 'text-green-500'
+    },
+    error: {
+      icon: <LuCircleAlert className="h-5 w-5" />,
+      sidebar: 'bg-red-500',
+      iconColor: 'text-red-500'
+    },
+    info: {
+      icon: <LuInfo className="h-5 w-5" />,
+      sidebar: 'bg-blue-500',
+      iconColor: 'text-blue-500'
+    }
   }[toast.type]
 
   return (
     <div
-      className={`${bgColor} backdrop-blur-sm text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 min-w-[300px] max-w-[400px] transition-all duration-300 ${
-        isExiting
-          ? 'translate-x-full opacity-0'
-          : 'translate-x-0 opacity-100 animate-slide-in-right'
-      }`}
+      className={`
+        relative flex w-full min-w-[320px] max-w-[400px] overflow-hidden rounded-xl
+        bg-sidebar-bg shadow-xl shadow-black/20 ring-1 ring-white/10
+        transition-all duration-300 ease-out
+        ${isExiting ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100 animate-slide-in-right'}
+      `}
+      role="alert"
     >
-      <span className="shrink-0 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">
-        {iconEmoji}
-      </span>
-      <span className="flex-1 text-sm font-medium">{t(toast.message)}</span>
-      {toast.retryAction && (
+      {/* Colored sidebar indicator */}
+      <div className={`w-1 shrink-0 ${styles.sidebar}`} />
+
+      <div className="flex flex-1 items-start gap-3 p-4">
+        <div className={`mt-0.5 shrink-0 ${styles.iconColor}`}>{styles.icon}</div>
+
+        <div className="flex flex-1 flex-col gap-1.5">
+          <p className="text-sm font-medium leading-snug text-gray-100">{t(toast.message)}</p>
+
+          {toast.retryAction && (
+            <button
+              onClick={() => {
+                handleDismiss()
+                retryDiscovery()
+              }}
+              className="mt-1 w-fit rounded-md bg-white/10 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/20 active:bg-white/25 cursor-pointer"
+            >
+              {t('toast.retry')}
+            </button>
+          )}
+        </div>
+
         <button
-          className="text-sm font-semibold bg-white/20 hover:bg-white/30 px-3 py-1 rounded-md transition-colors cursor-pointer"
-          onClick={() => {
-            handleDismiss()
-            retryDiscovery()
-          }}
+          onClick={handleDismiss}
+          className="group -mr-1 -mt-1 p-1 text-gray-400 transition-colors hover:text-white cursor-pointer"
+          aria-label="Close"
         >
-          {t('toast.retry')}
+          <LuX size={16} className="transition-transform group-hover:scale-110" />
         </button>
-      )}
-      <button
-        className="text-white/60 hover:text-white transition-colors cursor-pointer shrink-0 p-1 rounded hover:bg-white/10"
-        onClick={handleDismiss}
-      >
-        <LuX size={16} />
-      </button>
+      </div>
     </div>
   )
 }
@@ -76,9 +93,11 @@ export function ToastContainer() {
   if (toasts.length === 0) return null
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 overflow-hidden">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none">
       {toasts.map((toast) => (
-        <Toast key={toast.id} toast={toast} />
+        <div key={toast.id} className="pointer-events-auto">
+          <Toast toast={toast} />
+        </div>
       ))}
     </div>
   )
