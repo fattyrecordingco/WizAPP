@@ -58,13 +58,17 @@ export async function discover({
 	});
 
 	const listener = (msg: Buffer, rinfo: dgram.RemoteInfo) => {
-		const response = JSON.parse(msg.toString());
+		try {
+			const response = JSON.parse(msg.toString());
 
-		if (checkType(getPilotResponseTemplate, response)) {
-			// Avoid duplicates
-			if (!bulbs.some(b => b.address === rinfo.address)) {
-				bulbs.push(new Bulb(rinfo.address, { port }));
+			if (checkType(getPilotResponseTemplate, response)) {
+				// Avoid duplicates
+				if (!bulbs.some(b => b.address === rinfo.address)) {
+					bulbs.push(new Bulb(rinfo.address, { port }));
+				}
 			}
+		} catch (e) {
+			// Ignore invalid JSON or malformed packets
 		}
 	};
 

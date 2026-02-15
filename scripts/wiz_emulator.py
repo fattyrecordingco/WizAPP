@@ -109,19 +109,19 @@ class VirtualBulb:
             method = msg.get("method", "")
             
             if method == "getPilot":
-                return self.get_pilot_response()
+                return self.get_pilot_response(), method
             elif method == "getSystemConfig":
-                return self.get_system_config_response()
+                return self.get_system_config_response(), method
             elif method == "setPilot":
-                return self.handle_set_pilot(msg.get("params", {}))
+                return self.handle_set_pilot(msg.get("params", {})), method
             elif method == "registration":
                 # Discovery registration request - respond with registration success
-                return self.get_registration_response()
+                return self.get_registration_response(), method
             else:
                 print(f"  [{self.name}] Unknown method: {method}")
-                return {"error": "Unknown method"}
+                return {"error": "Unknown method"}, method
         except json.JSONDecodeError:
-            return {"error": "Invalid JSON"}
+            return {"error": "Invalid JSON"}, "invalid_json"
     
     def run(self):
         try:
@@ -135,11 +135,9 @@ class VirtualBulb:
             while self.running:
                 try:
                     data, addr = self.sock.recvfrom(1024)
-                    response = self.handle_message(data)
+                    response, method = self.handle_message(data)
                     
                     # Log the interaction
-                    msg = json.loads(data.decode())
-                    method = msg.get("method", "unknown")
                     print(f"  [{self.name}] {method} from {addr[0]} -> {response.get('method', 'response')}")
                     
                     self.sock.sendto(json.dumps(response).encode(), addr)

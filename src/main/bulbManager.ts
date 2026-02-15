@@ -369,7 +369,6 @@ class BulbManager {
 
   public async retryDiscovery() {
     // Clear previous state
-    this.endConnection()
     this.bulbs.clear()
     this.bulbStates.clear()
     this.activeBulbIp = null
@@ -379,17 +378,6 @@ class BulbManager {
   }
 
   public async reconnectBulb(ip: string) {
-    // Close existing connection
-    const existingBulb = this.bulbs.get(ip)
-    if (existingBulb) {
-      try {
-        existingBulb.closeConnection()
-        log.info('Closed previous connection for', ip)
-      } catch (error) {
-        log.warn('Error closing connection for', ip, ':', error)
-      }
-    }
-
     // Remove from maps
     this.bulbs.delete(ip)
     this.bulbStates.delete(ip)

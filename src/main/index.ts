@@ -89,7 +89,9 @@ if (!gotTheLock) {
     const mainWindow = createWindow()
 
     // Disable menu completely (prevents showing menu when Alt or Ctrl is pressed)
-    Menu.setApplicationMenu(null)
+    if (HIDE_MENU && process.platform !== 'darwin') {
+      Menu.setApplicationMenu(null)
+    }
 
     const bulbHelper = new BulbManager(mainWindow)
     registerIPCEvents(bulbHelper)
