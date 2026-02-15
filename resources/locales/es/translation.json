@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Inicio",
+    "title": "Focos",
     "subtitle": "Gestiona tus focos",
     "search": "Buscando focos...",
     "add": {
@@ -144,7 +144,7 @@
   },
   "sidebar": {
     "menu": "Menú",
-    "home": "Inicio",
+    "home": "Focos",
     "scenes": "Escenas",
     "information": "Información",
     "settings": "Ajustes",

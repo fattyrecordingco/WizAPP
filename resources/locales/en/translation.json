@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Home",
+    "title": "Bulbs",
     "subtitle": "Manage your bulbs",
     "search": "Searching bulbs",
     "toggle": "Toggle",
@@ -142,7 +142,7 @@
   },
   "sidebar": {
     "menu": "Menu",
-    "home": "Home",
+    "home": "Bulbs",
     "scenes": "Scenes",
     "information": "Information",
     "settings": "Settings",
