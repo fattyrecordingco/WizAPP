@@ -33,7 +33,7 @@ export default function BrightnessSlider() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col my-2 gap-2">
       <label className="text-xs text-neutral-400/75 subpixel-antialiased">
         {t('sidebar.brightness')}: {currentBrightness}%
       </label>

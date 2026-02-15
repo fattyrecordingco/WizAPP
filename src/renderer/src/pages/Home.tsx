@@ -89,7 +89,7 @@ export default function Home() {
         </p>
       )}
 
-      <article className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(192px,192px))] gap-x-6 gap-y-6 lg:gap-y-8">
+      <article className="mt-4 grid grid-cols-3 gap-x-4 gap-y-4 lg:gap-y-6 lg:grid-cols-4 xl:grid-cols-5">
         {bulbs.map((b) => (
           <BulbCard
             key={b.ip}
@@ -104,7 +104,7 @@ export default function Home() {
         <Button
           variant="secondary"
           onClick={() => toggleModal('ip')}
-          className="flex flex-col items-center justify-center w-48 h-31 g-1"
+          className="flex flex-col items-center justify-center w-full h-31 g-1"
         >
           <LuCirclePlus size={32} strokeWidth={1} />
           <p className="mt-2 text-lg">{t('home.add.entry')}</p>
