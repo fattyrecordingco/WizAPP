@@ -1,4 +1,5 @@
 import { BulbState } from '@shared/types/bulbState'
+import { LightSyncFrame, LightSyncSource } from '@shared/types/lightSync'
 
 export interface IElectronAPI {
   onUpdateBulb: (callback: (bulb: BulbState) => void) => void
@@ -9,6 +10,8 @@ export interface IElectronAPI {
   setIp: (ip: string) => void
   visitAuthor: () => void
   setScene: (sceneId: number) => void
+  applySyncFrame: (frame: LightSyncFrame) => void
+  getSyncSources: () => Promise<LightSyncSource[]>
   addCustomColor: (colorName: string, colorHex: string) => void
   setCustomColor: (colorId: number) => void
   editCustomColor: (colorId: number, colorName: string, colorHex: string) => void

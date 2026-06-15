@@ -9,7 +9,7 @@ import { useBulbStore } from '@renderer/context/BulbStore'
 import { SidebarModalState } from '@renderer/types/modals'
 import { ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LuCircleHelp, LuImages, LuInfo, LuLayoutDashboard, LuSettings } from 'react-icons/lu'
+import { LuCircleHelp, LuImages, LuInfo, LuLayoutDashboard, LuMusic, LuSettings } from 'react-icons/lu'
 
 export default function Sidebar() {
   const { t } = useTranslation()
@@ -51,8 +51,9 @@ export default function Sidebar() {
         <ul className="text-white flex flex-col gap-2">
           <MenuLink index={0} label={t('sidebar.home')} to="/" icon={<LuLayoutDashboard size={20} />} />
           <MenuLink index={1} label={t('sidebar.scenes')} to="/scenes" icon={<LuImages size={20} />} />
+          <MenuLink index={2} label={t('sidebar.sync')} to="/sync" icon={<LuMusic size={20} />} />
           <MenuLink
-            index={2}
+            index={3}
             label={t('sidebar.information')}
             to="/information"
             icon={<LuInfo size={20} />}

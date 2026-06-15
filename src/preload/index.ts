@@ -1,5 +1,6 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { BulbState } from '@shared/types/bulbState'
+import { LightSyncFrame, LightSyncSource } from '@shared/types/lightSync'
 import { contextBridge, ipcRenderer } from 'electron'
 
 // Custom APIs for renderer
@@ -13,6 +14,8 @@ const api = {
   setIp: (ip: string) => ipcRenderer.send('set-ip', ip),
   visitAuthor: () => ipcRenderer.send('visit-author'),
   setScene: (sceneId: number) => ipcRenderer.send('set-scene', sceneId),
+  applySyncFrame: (frame: LightSyncFrame) => ipcRenderer.send('apply-sync-frame', frame),
+  getSyncSources: (): Promise<LightSyncSource[]> => ipcRenderer.invoke('get-sync-sources'),
   toggleFavoriteColor: (colorId: number) => ipcRenderer.send('toggle-favorite-color', colorId),
   addCustomColor: (colorName: string, colorHex: string) =>
     ipcRenderer.send('add-custom-color', colorName, colorHex),

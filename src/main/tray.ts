@@ -12,6 +12,8 @@ const createTray = (mainWindow: BrowserWindow, app: Electron.App, bulbHelper: Bu
       click: () => {
         log.info('Tray show option clicked, restoring window...')
         mainWindow.show()
+        mainWindow.restore()
+        mainWindow.focus()
         log.debug('Window size is:', mainWindow.getSize())
       }
     },
@@ -38,6 +40,8 @@ const createTray = (mainWindow: BrowserWindow, app: Electron.App, bulbHelper: Bu
   tray.on('click', () => {
     log.info('Tray icon clicked, restoring window...')
     mainWindow.show()
+    mainWindow.restore()
+    mainWindow.focus()
   })
 }
 

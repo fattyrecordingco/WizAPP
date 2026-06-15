@@ -6,7 +6,7 @@ import registerIPCEvents from '@main/ipcEvents'
 import initializeLanguage from '@main/localization'
 import initializeLogger from '@main/logger'
 import createTray from '@main/tray'
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, desktopCapturer, session, shell } from 'electron'
 import log from 'electron-log'
 import { join } from 'path'
 
@@ -26,7 +26,8 @@ function createWindow() {
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       devTools: !app.isPackaged,
-      sandbox: SANDBOX
+      sandbox: SANDBOX,
+      backgroundThrottling: false
     }
   })
 
@@ -54,6 +55,7 @@ function createWindow() {
 }
 
 const gotTheLock = app.requestSingleInstanceLock()
+let isQuitting = false
 
 if (!gotTheLock) {
   app.quit()
@@ -62,8 +64,9 @@ if (!gotTheLock) {
     const windows = BrowserWindow.getAllWindows()
     if (windows.length > 0) {
       const window = windows[0]
-      if (window.isMinimized()) {
+      if (window.isMinimized() || !window.isVisible()) {
         window.show()
+        window.restore()
       }
       window.focus()
     }
@@ -89,6 +92,14 @@ if (!gotTheLock) {
     initializeLogger()
     initializeLanguage(app)
 
+    session.defaultSession.setDisplayMediaRequestHandler(
+      async (_request, callback) => {
+        const sources = await desktopCapturer.getSources({ types: ['screen', 'window'] })
+        callback({ video: sources[0], audio: process.platform === 'win32' ? 'loopback' : undefined })
+      },
+      { useSystemPicker: true }
+    )
+
     const mainWindow = createWindow()
 
     const bulbHelper = new BulbManager(mainWindow)
@@ -96,14 +107,20 @@ if (!gotTheLock) {
 
     createTray(mainWindow, app, bulbHelper)
 
-    mainWindow.on('close', () => {
-      log.info('Closing app...')
-      bulbHelper.endConnection()
+    app.on('before-quit', () => {
+      isQuitting = true
     })
 
-    mainWindow.on('minimize', () => {
-      log.info('Hiding app to tray...')
-      mainWindow.hide()
+    mainWindow.on('close', (event) => {
+      if (!isQuitting) {
+        event.preventDefault()
+        log.info('Window closed, keeping app alive in tray...')
+        mainWindow.hide()
+        return
+      }
+
+      log.info('Quitting app...')
+      bulbHelper.endConnection()
     })
 
     app.on('activate', function () {

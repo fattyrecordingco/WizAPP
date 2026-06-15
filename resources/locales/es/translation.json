@@ -111,6 +111,81 @@
     "homeId": "ID del hogar",
     "roomId": "ID de la habitación"
   },
+  "sync": {
+    "title": "Sincronizar",
+    "subtitle": "Iluminación dinámica para música y color del monitor",
+    "preview": "Vista previa",
+    "source": "Fuente",
+    "display": "Pantalla",
+    "refresh": "Actualizar",
+    "mode": "Modo",
+    "start": "Iniciar",
+    "stop": "Detener",
+    "sources": {
+      "music": "Audio del sistema",
+      "screen": "Monitor"
+    },
+    "modes": {
+      "music-pulse": {
+        "title": "Pulso",
+        "tone": "Color reactivo"
+      },
+      "music-spectrum": {
+        "title": "Espectro",
+        "tone": "Graves, medios y agudos"
+      },
+      "music-warm": {
+        "title": "Brillo cálido",
+        "tone": "Movimiento ámbar suave"
+      },
+      "music-prism": {
+        "title": "Prisma",
+        "tone": "Espiral de color reactiva"
+      },
+      "music-bass": {
+        "title": "Graves",
+        "tone": "Pulsos profundos"
+      },
+      "screen-average": {
+        "title": "Promedio",
+        "tone": "Color balanceado"
+      },
+      "screen-vibrant": {
+        "title": "Vibrante",
+        "tone": "Color saturado"
+      },
+      "screen-edges": {
+        "title": "Bordes",
+        "tone": "Color ambiental de bordes"
+      },
+      "screen-punchy": {
+        "title": "Intenso",
+        "tone": "Color vivo dominante"
+      }
+    },
+    "controls": {
+      "sensitivity": "Sensibilidad",
+      "brightness": "Brillo",
+      "tempo": "Tempo"
+    },
+    "audio": {
+      "title": "Fuente de audio",
+      "system": "Salida del sistema",
+      "output": "Salida",
+      "input": "Entrada"
+    },
+    "status": {
+      "idle": "Inactivo",
+      "running": "Sincronizando",
+      "error": "Detenido"
+    },
+    "errors": {
+      "noBulb": "Conecta una bombilla primero.",
+      "noSource": "No se encontró una pantalla.",
+      "noAudio": "No se compartió audio del sistema.",
+      "capture": "No se pudo iniciar la captura."
+    }
+  },
   "settings": {
     "title": "Ajustes",
     "theme": {
@@ -145,6 +220,7 @@
     "menu": "Menú",
     "home": "Inicio",
     "scenes": "Escenas",
+    "sync": "Sincronizar",
     "information": "Información",
     "settings": "Ajustes",
     "help": "Ayuda",

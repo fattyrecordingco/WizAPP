@@ -109,6 +109,81 @@
     "homeId": "Home ID",
     "roomId": "Room ID"
   },
+  "sync": {
+    "title": "Sync",
+    "subtitle": "Dynamic lighting for music and monitor color",
+    "preview": "Preview",
+    "source": "Source",
+    "display": "Display",
+    "refresh": "Refresh",
+    "mode": "Mode",
+    "start": "Start sync",
+    "stop": "Stop sync",
+    "sources": {
+      "music": "System audio",
+      "screen": "Monitor"
+    },
+    "modes": {
+      "music-pulse": {
+        "title": "Pulse",
+        "tone": "Beat-reactive color"
+      },
+      "music-spectrum": {
+        "title": "Spectrum",
+        "tone": "Bass, mids and highs"
+      },
+      "music-warm": {
+        "title": "Warm glow",
+        "tone": "Soft amber movement"
+      },
+      "music-prism": {
+        "title": "Prism",
+        "tone": "Beat-shifted color spiral"
+      },
+      "music-bass": {
+        "title": "Bass bloom",
+        "tone": "Deep low-end pulses"
+      },
+      "screen-average": {
+        "title": "Average",
+        "tone": "Balanced monitor color"
+      },
+      "screen-vibrant": {
+        "title": "Vibrant",
+        "tone": "Saturated monitor color"
+      },
+      "screen-edges": {
+        "title": "Edges",
+        "tone": "Ambient border sampling"
+      },
+      "screen-punchy": {
+        "title": "Punchy",
+        "tone": "Strongest vivid color"
+      }
+    },
+    "controls": {
+      "sensitivity": "Sensitivity",
+      "brightness": "Brightness",
+      "tempo": "Tempo"
+    },
+    "audio": {
+      "title": "Audio source",
+      "system": "System output",
+      "output": "Output",
+      "input": "Input"
+    },
+    "status": {
+      "idle": "Idle",
+      "running": "Syncing",
+      "error": "Stopped"
+    },
+    "errors": {
+      "noBulb": "Connect a bulb first.",
+      "noSource": "No display source found.",
+      "noAudio": "No system audio was shared.",
+      "capture": "Capture could not start."
+    }
+  },
   "settings": {
     "title": "Settings",
     "theme": {
@@ -143,6 +218,7 @@
     "menu": "Menu",
     "home": "Home",
     "scenes": "Scenes",
+    "sync": "Sync",
     "information": "Information",
     "settings": "Settings",
     "help": "Help",

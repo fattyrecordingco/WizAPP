@@ -4,6 +4,7 @@ import { CONFIG, DISCOVER_TIMEOUT } from '@constants'
 import { Bulb, discover, SCENES } from '@lib/wikari/src/mod'
 import { MAX_DEFAULT_COLORS } from '@shared/constants'
 import { BulbState } from '@shared/types/bulbState'
+import { LightSyncFrame } from '@shared/types/lightSync'
 import { BrowserWindow } from 'electron'
 import log from 'electron-log'
 import fs from 'fs'
@@ -37,12 +38,14 @@ class BulbManager {
   private appData: BulbConfig | null
   public window: BrowserWindow
   private bulbIP: string | null
+  private lastSyncFrameAt: number
 
   constructor(window: BrowserWindow) {
     this.bulb = null
     this.bulbState = null
     this.appData = null
     this.bulbIP = null
+    this.lastSyncFrameAt = 0
 
     this.window = window
     this.init()
@@ -71,6 +74,7 @@ class BulbManager {
       }
       log.warn('Config data not found, creating new config file...')
     }
+
     return data
   }
 
@@ -297,6 +301,52 @@ class BulbManager {
     this.bulbState.state = true
     this.bulbState.sceneId = colorId
     await this.bulb.color(color.hex as `#${string}`)
+  }
+
+  public async applySyncFrame(frame: LightSyncFrame) {
+    if (!this.bulbState || !this.bulb) return
+
+    const now = Date.now()
+    if (now - this.lastSyncFrameAt < 140) return
+    this.lastSyncFrameAt = now
+
+    const brightness = Math.max(1, Math.min(100, Math.round(frame.brightness)))
+
+    try {
+      await this.bulb.sendRaw(
+        {
+          method: 'setPilot',
+          params: {
+            state: true,
+            dimming: brightness,
+            ...this.hexToRgb(frame.color)
+          }
+        },
+        false
+      )
+
+      this.bulbState.state = true
+      this.bulbState.dimming = brightness
+    } catch (error) {
+      log.warn('Failed to apply light sync frame: ', error)
+    }
+  }
+
+  private hexToRgb(color: `#${string}`) {
+    const hex = color.replace('#', '')
+    const normalized =
+      hex.length === 3
+        ? hex
+            .split('')
+            .map((char) => `${char}${char}`)
+            .join('')
+        : hex
+
+    return {
+      r: parseInt(normalized.slice(0, 2), 16),
+      g: parseInt(normalized.slice(2, 4), 16),
+      b: parseInt(normalized.slice(4, 6), 16)
+    }
   }
 
   @needsViewUpdate('edit custom color')

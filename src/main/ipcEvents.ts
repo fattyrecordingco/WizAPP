@@ -1,6 +1,6 @@
 import i18n from '@i18n'
 import BulbManager from '@main/bulbManager'
-import { app, ipcMain, shell } from 'electron'
+import { app, desktopCapturer, ipcMain, shell } from 'electron'
 import { autoUpdater } from 'electron-updater'
 
 const registerIPCEvents = (BulbManager: BulbManager) => {
@@ -22,6 +22,10 @@ const registerIPCEvents = (BulbManager: BulbManager) => {
 
   ipcMain.on('set-scene', async (_, sceneId) => {
     await BulbManager.setScene(sceneId)
+  })
+
+  ipcMain.on('apply-sync-frame', async (_, frame) => {
+    await BulbManager.applySyncFrame(frame)
   })
 
   ipcMain.on('add-custom-color', async (_, colorName, colorHex) => {
@@ -54,6 +58,20 @@ const registerIPCEvents = (BulbManager: BulbManager) => {
 
   ipcMain.handle('get-bulb', () => {
     return BulbManager.getBulbState()
+  })
+
+  ipcMain.handle('get-sync-sources', async () => {
+    const sources = await desktopCapturer.getSources({
+      types: ['screen'],
+      thumbnailSize: { width: 320, height: 180 }
+    })
+
+    return sources.map((source) => ({
+      id: source.id,
+      name: source.name,
+      displayId: source.display_id,
+      thumbnail: source.thumbnail.toDataURL()
+    }))
   })
 
   ipcMain.handle('check-for-updates', async () => {
